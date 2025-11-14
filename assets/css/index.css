@@ -23,15 +23,14 @@ header img {
 }
 
 .main-banner {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0px 120px;
-    background-color: #a4d6e1;
-    margin: 0;
-    border-radius: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 120px;
+  background-color: #a4d6e1;
+  margin: 0;
+  border-radius: 0;
 }
-
 
 .welcome-message {
   flex: 1;
@@ -140,21 +139,27 @@ footer button:hover {
   gap: 5px;
 }
 
-.contact {
+.pets-gallery a {
   width: 34%;
-  border-radius: 10px;
-  object-fit: cover;
-  transition: transform 0.3s;
+  display: block;
+  text-decoration: none;
 }
 
-.pets-gallery img {
-  width: 34%;
+.pets-gallery a img {
+  width: 100%;
+  height: auto;
   border-radius: 10px;
   object-fit: cover;
   border: 2px solid #239fb4;
   transition: transform 0.3s;
+  cursor: pointer;
 }
 
-.pets-gallery img:hover {
+.pets-gallery a img:hover {
   transform: scale(1.02);
+}
+
+.contact {
+  border-radius: 10px;
+  object-fit: cover;
 }
