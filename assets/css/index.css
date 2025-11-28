@@ -1,0 +1,286 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Arial", sans-serif;
+  background-color: #91d6e0;
+  overflow-x: hidden;
+}
+
+header {
+  background-color: #239fb4;
+  display: flex;
+  align-items: center;
+  padding: 0px 10px;
+}
+
+header img {
+  width: 140px;
+  height: auto;
+}
+
+.main-banner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 120px;
+  background-color: #a4d6e1;
+  margin: 0;
+  border-radius: 0;
+}
+
+.welcome-message {
+  flex: 1;
+  z-index: 2;
+  color: #03424f;
+}
+
+.welcome-message h1 {
+  font-size: 2.2em;
+  color: #239FB4;
+  font-weight: 1000;
+}
+
+.welcome-message h2 {
+  font-size: 2.5em;
+  color: #fff;
+  font-weight: 250;
+  margin-bottom: 20px;
+}
+
+.welcome-message p {
+  background-color: #1e6b7a;
+  color: white;
+  padding: 50px;
+  border-radius: 50px;
+  max-width: 400px;
+  font-size: 1.1em;
+  line-height: 1.5em;
+}
+
+.dog-image {
+  flex: 0;
+  margin: 0 40px;
+  display: flex;
+  justify-content: center;
+}
+
+.dog-image img {
+  max-width: 700px;
+}
+
+footer {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  padding: 30px;
+  background-color: #239fb4;
+}
+
+footer button {
+  padding: 15px 25px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1em;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.contact-button {
+  background-color: #ffd740;
+  color: #000;
+}
+
+.adopt-button {
+  background-color: #ff5722;
+  color: white;
+}
+
+footer button:hover {
+  transform: scale(1.05);
+  opacity: 0.9;
+}
+
+.adote-section {
+  background-image: url("../img/background.png");
+  padding: 50px 20px;
+  text-align: center;
+}
+
+.adote-section h2 {
+  font-size: 2em;
+  color: #1e6b7a;
+}
+
+.adote-section h3 {
+  font-size: 3em;
+  color: white;
+  margin-bottom: 10px;
+}
+
+.adote-section p {
+  background-color: #239fb4;
+  display: inline-block;
+  padding: 15px 25px;
+  color: white;
+  border-radius: 10px;
+  margin-top: 15px;
+  font-size: 1.2em;
+}
+
+.pets-gallery {
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.pets-gallery a {
+  width: 34%;
+  display: block;
+  text-decoration: none;
+}
+
+.pets-gallery a img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  object-fit: cover;
+  border: 2px solid #239fb4;
+  transition: transform 0.3s;
+  cursor: pointer;
+}
+
+.pets-gallery a img:hover {
+  transform: scale(1.02);
+}
+
+.contact {
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.telefone {
+  position: relative;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+}
+
+.telefone p {
+  background-color: #3b92a3;
+  color: white;
+  padding: 20px 20px 20px 40px; 
+  border-radius: 50px;
+  max-width: 330px;
+  font-size: 1.1em;
+  line-height: 1.5em;
+  margin: 0;
+}
+
+.contact-icon {
+  width: 70px;
+  height: 70px;
+  background-color: white;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: -35px;
+  transform: translateY(-50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.contact-icon img {
+  width: 35px;
+  height: 35px;
+}
+
+header {
+  background-color: #239fb4;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 40px;
+}
+
+/* --- MENU PRINCIPAL --- */
+.menu-links {
+  display: flex;
+  gap: 20px;
+}
+
+.menu-links a {
+  color: white;
+  text-decoration: none;
+  font-size: 1.1em;
+  letter-spacing: 1px;
+  font-weight: 300;
+}
+
+.menu-links a:hover {
+  opacity: 0.7;
+}
+
+
+.user-area {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.user-area img {
+  width: 28px;
+  height: 28px;
+}
+
+.user-links {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+.user-links a {
+  text-decoration: none;
+  font-size: 0.95em;
+  color: #0b4370;
+  font-weight: 500;
+}
+
+.user-links a:hover {
+  opacity: 0.7;
+}
+
+.cadastro-link {
+  font-size: 0.85em;
+  color: #2c7bb5;
+}
+
+/* Remove sublinhado e estilo de link visitado */
+a, a:visited, a:active {
+  text-decoration: none !important;
+  color: inherit !important;
+}
+
+/* Corrige menu para nunca mudar de tamanho */
+.menu-links a,
+.user-links a {
+  text-decoration: none !important;
+  color: inherit !important;
+  font-weight: inherit;
+}
+
+.menu-links a,
+.menu-links a:visited {
+  color: white !important;
+}
+
+.user-links a,
+.user-links a:visited {
+  color: #0b4370 !important;
+}
