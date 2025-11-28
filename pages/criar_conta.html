@@ -4,50 +4,57 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Adote Aqui - Crie sua Conta</title>
-    <link rel="stylesheet" href="../assets/css/criar_conta.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
+    <link rel="stylesheet" href="../assets/css/cadastros.css">
 </head>
 
 <body>
+
+<header class="logo-area">
+    <a href="../index.html" class="logo">
+        <img src="../assets/img/logo.png" class="logo-img">
+    </a>
+</header>
+
+<div class="container" id="tela-criar">
+    <div class="apresentacao">
+        <h1 id="titulo-criar">Crie uma<br>Nova Conta</h1>
+        <p id="txt-ja">Já registrado? <span><a href="./entrar.html">Entrar</a></span></p>
     <div class="container">
         <div class="apresentacao">
             <h1>Crie uma<br>Nova Conta</h1>
             <p>Já registrado? <a href="../index.html" class="link-entrar">Entrar</a></p>
 
-            <div class="pets-img">
-                <img src="../assets/img/criar_conta.png" alt="Cachorro, gato e pássaros">
-            </div>
-        </div>
-
-        <div class="form-card">
-            <form class="login-form">
-
-                <div class="avatar">
-                    <i class="fas fa-user"></i>
-                </div>
-
-                <div class="input-group">
-                    <input type="text" id="nome" name="nome" placeholder="Digite seu e-mail" required>
-                </div>
-
-                <div class="input-group">
-                    <input type="password" id="senha" name="senha" placeholder="Crie uma senha" required>
-                </div>
-
-                <div class="opcoes">
-                    <label class="lembrar">
-                        <input type="checkbox" name="lembrar" checked>
-                        Lmebrar de mim
-                    </label>
-
-                    <a href="#" class="forgot-password">Esqueceu a senha?</a>
-                </div>
-
-                <button type="submit" class="btn-login">Criar Conta</button>
-            </form>
+        <div class="pets-img" id="img-pets">
+            <img src="../assets/img/criar_conta.png">
         </div>
     </div>
+
+    <div class="form-card" id="card">
+        <form class="login-form" id="form-criar">
+            <div class="input-group">
+                <input type="email" id="email" placeholder="Digite seu e-mail" required>
+            </div>
+
+            <div class="input-group">
+                <input type="password" id="senha" placeholder="Crie uma senha" required>
+            </div>
+
+            <div class="input-group">
+                <input type="text" id="estado" placeholder='Seu estado "SP"' required>
+            </div>
+
+            <button type="submit" class="btn-login" id="btn-criar">Criar Conta</button>
+        </form>
+    </div>
+</div>
+
+<div id="tela-boas-vindas" class="tela-oculta">
+    <h1 id="titulo-ola"></h1>
+    <p id="texto-ola">Vamos ver um pet para você?</p>
+    <button id="btn-pets" class="btn-login">Ir para pets</button>
+</div>
+
+<script src="../assets/js/criar_conta.js"></script>
 
 </body>
 </html>

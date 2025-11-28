@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adote Aqui - Entrar</title>
+    <link rel="stylesheet" href="../assets/css/cadastros.css">
+</head>
+
+<body>
+
+<header class="logo-area">
+    <a href="../index.html" class="logo">
+        <img src="../assets/img/logo.png" alt="Adote Aqui Logo" class="logo-img">
+    </a>
+</header>
+
+<div class="container" id="tela-entrar">
+
+    <div class="apresentacao">
+        <h1 id="titulo-login">Bem-vindo<br>de volta!</h1>
+        <p id="txt-cadastro">Ainda não possui conta?
+            <a href="criar_conta.html" class="link-entrar">Criar conta</a>
+        </p>
+
+        <div class="pets-img" id="img-pets">
+            <img src="../assets/img/criar_conta.png" alt="Cachorro, gato e pássaros">
+        </div>
+    </div>
+
+    <div class="form-card" id="card-login">
+
+        <form class="login-form" id="form-login">
+
+            <div class="input-group">
+                <input type="email" id="email" placeholder="Seu e-mail" required>
+            </div>
+
+            <div class="input-group">
+                <input type="password" id="senha" placeholder="Sua senha" required>
+            </div>
+
+            <button type="submit" id="btn-entrar" class="btn-login">Entrar</button>
+
+            <p id="erro-login" class="erro"></p>
+        </form>
+    </div>
+</div>
+
+<!-- BOAS-VINDAS APÓS LOGIN -->
+<div id="tela-boas-vindas" class="tela-oculta">
+    <h1 id="titulo-ola"></h1>
+    <h3>Que tal ver um pet perfeito para você?</h3>
+    <button id="btn-pets" class="btn-pets">Ir para pets</button>
+</div>
+
+<script src="../assets/js/entrar.js"></script>
+</body>
+</html>
