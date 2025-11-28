@@ -18,7 +18,7 @@ header {
 }
 
 header img {
-  width: 140px;
+  width: 100px;
   height: auto;
 }
 
@@ -209,7 +209,7 @@ header {
   padding: 10px 40px;
 }
 
-/* --- MENU PRINCIPAL --- */
+
 .menu-links {
   display: flex;
   gap: 20px;
@@ -235,8 +235,8 @@ header {
 }
 
 .user-area img {
-  width: 28px;
-  height: 28px;
+  width: 70px;
+  height: 70px;
 }
 
 .user-links {
@@ -248,7 +248,7 @@ header {
 .user-links a {
   text-decoration: none;
   font-size: 0.95em;
-  color: #0b4370;
+  color: #1c5b8e;
   font-weight: 500;
 }
 
@@ -261,13 +261,11 @@ header {
   color: #2c7bb5;
 }
 
-/* Remove sublinhado e estilo de link visitado */
 a, a:visited, a:active {
   text-decoration: none !important;
   color: inherit !important;
 }
 
-/* Corrige menu para nunca mudar de tamanho */
 .menu-links a,
 .user-links a {
   text-decoration: none !important;
@@ -283,4 +281,178 @@ a, a:visited, a:active {
 .user-links a,
 .user-links a:visited {
   color: #0b4370 !important;
+}
+
+.btn-menu {
+    padding: 8px 18px;
+    border-radius: 50px;
+
+    color: #fff !important;
+    background: rgba(255, 255, 255, 0.20);
+    border: 1.4px solid rgba(255, 255, 255, 0.35);
+
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+
+    box-shadow:
+        inset 3px 3px 8px rgba(255, 255, 255, 0.35),
+        inset -3px -3px 8px rgba(0, 0, 0, 0.10),
+        0 6px 15px rgba(0, 0, 0, 0.20);
+
+    transition: 0.2s;
+    text-decoration: none !important;
+    display: inline-block;
+}
+
+.btn-menu:hover {
+    background: rgba(255, 255, 255, 0.33);
+    border-color: rgba(255, 255, 255, 0.65);
+    transform: translateY(-2px);
+}
+
+.menu-links a.btn-menu,
+.user-links a.btn-menu {
+    color: #fff !important;
+}
+
+a, a:visited, a:active {
+  text-decoration: none !important;
+  color: inherit;
+}
+
+
+@media (max-width: 1400px) {
+
+  .main-banner {
+    padding: 20px 40px;
+    flex-direction: row;
+    gap: 20px;
+  }
+
+  .welcome-message h1 {
+    font-size: 1.9em;
+  }
+
+  .welcome-message h2 {
+    font-size: 2.2em;
+  }
+
+  .welcome-message p {
+    padding: 35px;
+    font-size: 1em;
+    max-width: 340px;
+  }
+
+  .dog-image img {
+    max-width: 480px;
+  }
+
+  .telefone p {
+    padding: 15px 20px 15px 45px;
+    font-size: 1em;
+  }
+
+  .contact-icon {
+    width: 60px;
+    height: 60px;
+    left: -30px;
+  }
+
+  
+  .pets-gallery a {
+    width: 30%;
+  }
+}
+
+@media (max-width: 1100px) {
+
+  header {
+    padding: 10px 20px;
+  }
+
+  .menu-links {
+    gap: 10px;
+  }
+
+  .btn-menu {
+    padding: 6px 14px;
+    font-size: 0.95em;
+  }
+
+  .main-banner {
+    flex-direction: column;
+    text-align: center;
+    padding: 20px;
+  }
+
+  .welcome-message p {
+    margin: 0 auto;
+  }
+
+  .dog-image img {
+    max-width: 380px;
+    margin-top: 20px;
+  }
+
+  .telefone {
+    margin-top: 20px;
+    display: inline-flex;
+  }
+
+  .pets-gallery a {
+    width: 46%;
+  }
+}
+
+
+@media (max-width: 768px) {
+
+  header {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .menu-links {
+    justify-content: center;
+  }
+
+  .user-area {
+    margin-top: 5px;
+  }
+
+  .welcome-message h1 {
+    font-size: 1.6em;
+  }
+
+  .welcome-message h2 {
+    font-size: 2em;
+  }
+
+  .welcome-message p {
+    padding: 25px;
+    max-width: 300px;
+  }
+
+  .dog-image img {
+    max-width: 300px;
+  }
+
+  .pets-gallery {
+    gap: 10px;
+  }
+
+  .pets-gallery a {
+    width: 90%;
+  }
+}
+
+.site-footer {
+  width: 100%;
+  background-color: #239fb4;
+  color: white;
+  text-align: center;
+  padding: 30px 0;
+  font-size: 1.1em;
+  margin-top: 40px;
+  letter-spacing: 1px;
 }
