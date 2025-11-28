@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adote Aqui - Pets</title>
+    <link rel="stylesheet" href="../assets/css/lista.css">
+    <script src="../assets/js/lista.js" defer></script>
+</head>
+<body>
+    <header class="cabecalho">
+        <div class="linha-desktop">
+            <div class="logo">
+                <a href="../index.html">
+                    <img src="../assets/img/logo.png">
+                </a>
+            </div>
+
+            <div class="busca busca-desktop">
+                <input id="campo-busca" type="text" placeholder="Pesquisar" autocomplete="off" />
+            </div>
+
+            <nav class="menu menu-desktop">
+                <ul>
+                    <li><a href="#" class="ativo">Geral</a></li>
+                    <li><a href="#" id="btn-filtrar">Filtrar</a></li>
+                </ul>
+            </nav>
+
+            <div class="login-desktop">
+                <a href="#" class="login">
+                    <img src="../assets/img/avatar.png" class="icon">
+                    <span>Entrar<br><small>Cadastrar-se</small></span>
+                </a>
+            </div>
+        </div>
+
+    <div class="top-mobile">
+        <div class="logo">
+            <a href="../index.html">
+                <img src="../assets/img/logo.png">
+            </a>
+        </div>
+
+        <div class="busca busca-mobile">
+            <input id="campo-busca-mobile" type="text" placeholder="Pesquisar" autocomplete="off" />
+        </div>
+    </div>
+
+    <nav class="menu menu-mobile">
+        <ul>
+            <li><a href="#" class="ativo">Geral</a></li>
+            <li><a id="btn-filtrar-mobile" class="btn-filtrar-mobile">Filtrar</a></li>
+            </ul>
+    </nav>
+    
+    <div class="login-mobile-standalone">
+        <a href="entrar.html" class="login">
+            <img src="../assets/img/avatar.png" class="icon">
+            <span>Entrar</span>
+        </a>
+    </div>
+    </header>
+
+    <div id="popup-filtros" class="popup-filtros hidden">
+    <div class="popup-content">
+        <h2>Filtrar pets</h2>
+
+        <label>Espécie</label>
+        <select id="filtro-especie">
+        <option value="">Todos</option>
+        <option value="cachorro">Cachorro</option>
+        <option value="gato">Gato</option>
+        <option value="coelho">Coelho</option>
+        <option value="passaro">Pássaro</option>
+        <option value="hamster">Hamster</option>
+        </select>
+
+        <label>Idade</label>
+        <select id="filtro-idade">
+        <option value="">Todas</option>
+        <option value="filhote">Filhote</option>
+        <option value="adulto">Adulto</option>
+        <option value="idoso">Idoso</option>
+        </select>
+
+        <label>Tamanho</label>
+        <select id="filtro-tamanho">
+        <option value="">Todos</option>
+        <option value="pequeno">Pequeno</option>
+        <option value="medio">Médio</option>
+        <option value="grande">Grande</option>
+        </select>
+
+        <label>Gênero</label>
+        <select id="filtro-genero">
+        <option value="">Todos</option>
+        <option value="macho">Macho</option>
+        <option value="femea">Fêmea</option>
+        </select>
+
+        <button id="btn-aplicar-filtros">Aplicar</button>
+        <button id="btn-fechar-popup" class="btn-fechar">Fechar</button>
+    </div>
+    </div>
+
+    <main class="conteudo">
+        <section class="galeria" id="galeria-pets">
+            </section>
+            
+    </main>
+</body>
+</html>
