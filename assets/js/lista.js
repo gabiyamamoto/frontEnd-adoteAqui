@@ -1,134 +1,460 @@
 const API_URL = "https://backend-adoteaqui.onrender.com";
-let tipos = [];
-let petsCarregados = [];
 
-function showError(msg) {
-    const galeria = document.getElementById("galeria-pets");
-    galeria.innerHTML = `<p style="color:#fff; text-align:center; padding:30px;">${msg}</p>`;
-    console.warn(msg);
-}
+document.addEventListener("DOMContentLoaded", () => {
+  const $ = (s, root = document) => root.querySelector(s);
+  const $$ = (s, root = document) => [...root.querySelectorAll(s)];
 
-async function carregarTipos() {
+  const erro = (msg) => {
+    const area = $("#galeria-pets");
+    if (area) area.innerHTML = `<p style="color:#fff; text-align:center; padding:30px;">${msg}</p>`;
+  };
+
+  const abrirPopup = () => {
+    const p = $("#popup-filtros");
+    const box = p?.querySelector(".popup-content");
+    if (!p || !box) return;
+    p.classList.remove("hidden");
+    requestAnimationFrame(() => {
+      p.classList.add("show");
+      box.classList.remove("bolha");
+      void box.offsetWidth;
+      box.classList.add("bolha");
+    });
+  };
+
+  const fecharPopup = () => {
+    const p = $("#popup-filtros");
+    const box = p?.querySelector(".popup-content");
+    if (!p || !box) return;
+    box.classList.remove("bolha");
+    p.classList.remove("show");
+    setTimeout(() => p.classList.add("hidden"), 300);
+  };
+
+  const configurarMenu = () => {
+    const desktop = $$(".menu-desktop a:not(#btn-filtrar)");
+    const mobile = $$(".menu-mobile a:not(#btn-filtrar-mobile)");
+
+    const ativar = (link, grupo) => {
+      grupo.forEach((a) => a.classList.remove("ativo"));
+      link.classList.add("ativo");
+    };
+
+    [...desktop].forEach((link) => {
+      link.addEventListener("click", (e) => {
+        e.preventDefault();
+        ativar(link, desktop);
+        renderizarPets();
+      });
+    });
+
+    [...mobile].forEach((link) => {
+      link.addEventListener("click", (e) => {
+        e.preventDefault();
+        ativar(link, mobile);
+        renderizarPets();
+      });
+    });
+
+    const abrirCategorias = async (e) => {
+      e.preventDefault();
+      document.querySelectorAll(".menu a.ativo").forEach((a) => a.classList.remove("ativo"));
+      e.currentTarget.classList.add("ativo");
+
+      const area = $("#galeria-pets");
+      if (!area) return;
+
+      area.innerHTML = "<h2>Carregando categorias...</h2>";
+
+      try {
+        const r = await fetch(`${API_URL}/tipos`);
+        const data = await r.json();
+        const tipos = data.tipos || [];
+
+        area.innerHTML = tipos
+          .map(
+            (t) => `
+          <div class="categoria-item" data-id="${t.id}">
+            <img src="${t.imageUrl}">
+            <span>${t.nome}</span>
+          </div>`
+          )
+          .join("");
+
+        $$(".categoria-item").forEach((el) => {
+          el.addEventListener("click", () => {
+            renderizarPorCategoria(el.dataset.id);
+          });
+        });
+      } catch (e) {
+        erro("Erro ao carregar categorias.");
+      }
+    };
+
+    [...$$(".menu-desktop a"), ...$$(".menu-mobile a")].forEach((a) => {
+      if (a.textContent.toLowerCase().includes("categor")) {
+        a.addEventListener("click", (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          abrirCategorias(e);
+        });
+      }
+    });
+  };
+
+  const configurarPopup = () => {
+    const btnDesk = $("#btn-filtrar");
+    const btnMob = $("#btn-filtrar-mobile");
+    const fechar = $("#btn-fechar-popup");
+    const aplicar = $("#btn-aplicar-filtros");
+
+    btnDesk?.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      abrirPopup();
+    });
+
+    btnMob?.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      abrirPopup();
+    });
+
+    fechar?.addEventListener("click", (e) => {
+      e.preventDefault();
+      fecharPopup();
+    });
+
+    aplicar?.addEventListener("click", async (e) => {
+      e.preventDefault();
+
+      const filtro = {
+        especie: $("#filtro-especie")?.value || "",
+        idade: $("#filtro-idade")?.value || "",
+        tamanho: $("#filtro-tamanho")?.value || "",
+        genero: $("#filtro-genero")?.value || "",
+      };
+
+      const params = new URLSearchParams();
+      Object.entries(filtro).forEach(([k, v]) => v && params.append(k, v));
+
+      const area = $("#galeria-pets");
+      if (area) area.innerHTML = "<h2>Filtrando...</h2>";
+
+      try {
+        const r = await fetch(`${API_URL}/pets?${params}`);
+        const data = await r.json();
+        const lista = data.pets || [];
+
+        area.innerHTML = lista.length
+          ? lista.map(criarCard).join("")
+          : "<p>Nenhum pet encontrado.</p>";
+      } catch (_) {
+        erro("Erro ao aplicar filtros.");
+      }
+
+      fecharPopup();
+    });
+  };
+
+  const configurarBusca = () => {
+    const input =
+      $("#campo-busca") || $("#campo-busca-mobile") || $(".busca input");
+    if (!input) return;
+
+    input.addEventListener(
+      "input",
+      debounce(async (e) => {
+        const termo = (e.target.value || "").toLowerCase().trim();
+        const area = $("#galeria-pets");
+
+        if (!termo) {
+          renderizarPets();
+          return;
+        }
+
+        area.innerHTML = "<h2>Buscando...</h2>";
+
+        const mapa = {
+          cachorro: ["especie", "cachorro"],
+          cao: ["especie", "cachorro"],
+          gato: ["especie", "gato"],
+          coelho: ["especie", "coelho"],
+          passaro: ["especie", "passaro"],
+          pássaro: ["especie", "passaro"],
+          hamster: ["especie", "hamster"],
+          filhote: ["idade", "filhote"],
+          adulto: ["idade", "adulto"],
+          idoso: ["idade", "idoso"],
+          pequeno: ["tamanho", "pequeno"],
+          medio: ["tamanho", "medio"],
+          médio: ["tamanho", "medio"],
+          grande: ["tamanho", "grande"],
+          macho: ["genero", "macho"],
+          fêmea: ["genero", "fêmea"],
+          fêmea: ["genero", "fêmea"],
+          adotado: ["adotado", "true"],
+          "não adotado": ["adotado", "false"],
+          "nao adotado": ["adotado", "false"],
+        };
+
+        let chave = "";
+        let valor = "";
+
+        for (const k in mapa) {
+          if (termo.includes(k)) {
+            [chave, valor] = mapa[k];
+            break;
+          }
+        }
+
+        if (!chave) {
+          area.innerHTML = `
+            <div style="text-align:center; padding:20px;">
+              <p style="font-size:20px; margin-bottom:10px;">Parece que não há pets disponíveis com essa busca. Que tal tentar outra pesquisa?</p>
+            </div>`;
+          return;
+        }
+
+        try {
+          const r = await fetch(`${API_URL}/pets?${chave}=${valor}`);
+          const data = await r.json();
+          const lista = data.pets || [];
+
+          area.innerHTML = lista.length
+            ? lista.map(criarCard).join("")
+            : "<p>Nenhum pet encontrado.</p>";
+        } catch (e) {
+          erro("Erro na busca.");
+        }
+      }, 250)
+    );
+  };
+
+  const debounce = (fn, t = 200) => {
+    let id;
+    return (...args) => {
+      clearTimeout(id);
+      id = setTimeout(() => fn.apply(null, args), t);
+    };
+  };
+
+  let tipos = [];
+
+  const carregarTipos = async () => {
     try {
-        const res = await fetch(`${API_URL}/tipos`);
-        if (!res.ok) throw new Error(`Status ${res.status} ao buscar /tipos`);
-
-        const data = await res.json();
-        tipos = data.tipos;
-
-        console.log("Tipos carregados:", tipos.length);
-    } catch (err) {
-        console.error("Erro ao carregar TIPOS:", err);
-        tipos = [];
-        throw err;
+      const r = await fetch(`${API_URL}/tipos`);
+      const data = await r.json();
+      tipos = data.tipos || [];
+    } catch (_) {
+      tipos = [];
     }
-}
+  };
 
-function criarCard(pet) {
-    const tipo = tipos.find(t => Number(t.id) === Number(pet.tipoId));
-    const img = tipo?.imageUrl || "https://via.placeholder.com/600x400?text=Sem+Imagem";
+  const criarCard = (pet) => {
+    const tipo = tipos.find((t) => +t.id === +pet.tipoId);
+    const img = tipo?.imageUrl || pet.imageUrl || "../img/default.jpg";
 
     return `
       <a class="card card-link" href="../../pages/pet.html?id=${pet.id}">
         <img src="${img}" alt="${pet.nome}">
         <h2>${pet.nome}</h2>
-        <p>${pet.local ?? pet.cidade ?? 'Local não informado'}</p>
+        <p>${pet.local || pet.cidade || "Local não informado"}</p>
       </a>
     `;
-}
+  };
 
-async function renderizarPets(especie) {
-    const galeria = document.getElementById("galeria-pets");
-    galeria.innerHTML = "<h2>Carregando amiguinhos 🐶🐱...</h2>";
+  const embaralhar = (arr) => {
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  };
+
+  const renderizarPets = async () => {
+    const area = $("#galeria-pets");
+    if (!area) return;
+
+    area.innerHTML = "<h2>Colocando coleira nos dados…</h2>";
 
     try {
-        const res = await fetch(`${API_URL}/pets`);
-        if (!res.ok) throw new Error(`Status ${res.status} ao buscar /pets`);
+      const r = await fetch(`${API_URL}/pets`);
+      const data = await r.json();
+      let lista = embaralhar(data.pets || []);
 
-        const data = await res.json();
-        const pets = data.pets;
+      area.innerHTML = "";
 
-        const filtrados = pets.filter(p => {
-            const tipo = tipos.find(t => t.id == p.tipoId);
-            return tipo && tipo.especie.toLowerCase() === especie.toLowerCase();
-        });
+      if (!lista.length) {
+        area.innerHTML = "<p>Acho que os pets estão se escondendo… mas nada que um pouco de ração não resolva!</p>";
+        return;
+      }
 
-        petsCarregados = filtrados;
-        galeria.innerHTML = "";
-
-        if (filtrados.length === 0) {
-            galeria.innerHTML = `<p>Nenhum ${especie} encontrado.</p>`;
-            return;
-        }
-
-        filtrados.forEach(pet =>
-            galeria.insertAdjacentHTML("beforeend", criarCard(pet))
-        );
-
-    } catch (err) {
-        console.error("Erro ao carregar pets:", err);
-        showError("Erro ao carregar pets. Verifique o servidor.");
+      lista.forEach((pet, i) => {
+        const d = document.createElement("div");
+        d.innerHTML = criarCard(pet);
+        const c = d.firstElementChild;
+        c.style.animationDelay = `${i * 40}ms`;
+        area.appendChild(c);
+      });
+    } catch (_) {
+      erro("Erro ao carregar pets.");
     }
-}
+  };
 
-function configurarMenu() {
-    const links = document.querySelectorAll(".menu a");
-    links.forEach(link => {
-        link.addEventListener("click", (e) => {
-            e.preventDefault();
+  const renderizarPorCategoria = async (id) => {
+    const area = $("#galeria-pets");
+    if (!area) return;
 
-            document.querySelector(".menu a.ativo")?.classList.remove("ativo");
-            e.target.classList.add("ativo");
+    area.innerHTML = "<h2>Carregando pets...</h2>";
 
-            const especie = e.target.textContent.trim().toLowerCase();
-            renderizarPets(especie);
-        });
-    });
-}
-
-function configurarBusca() {
-    const input = document.querySelector(".busca input");
-    const galeria = document.getElementById("galeria-pets");
-
-    input.addEventListener("input", () => {
-        const termo = input.value.toLowerCase().trim();
-
-        if (termo === "") {
-            galeria.innerHTML = "";
-            petsCarregados.forEach(p =>
-                galeria.insertAdjacentHTML("beforeend", criarCard(p))
-            );
-            return;
-        }
-
-        const resultados = petsCarregados.filter(pet => {
-            const tipo = tipos.find(t => t.id === pet.tipoId);
-
-            return (
-                pet.nome.toLowerCase().includes(termo) ||
-                (pet.local || "").toLowerCase().includes(termo) ||
-                (tipo?.nome_tipo || "").toLowerCase().includes(termo) ||
-                (pet.castrado ? "castrado" : "nao castrado").includes(termo) ||
-                (pet.vacinado ? "vacinado" : "nao vacinado").includes(termo) ||
-                (pet.adotado ? "adotado" : "nao adotado").includes(termo)
-            );
-        });
-
-        galeria.innerHTML = resultados.length
-            ? resultados.map(criarCard).join("")
-            : "<p>Nenhum pet encontrado</p>";
-    });
-}
-
-async function init() {
     try {
-        await carregarTipos();
-        configurarMenu();
-        configurarBusca();
-        renderizarPets("cachorro");
-    } catch (err) {
-        showError("Erro inicializando dados.");
+      const r = await fetch(`${API_URL}/pets?tipoId=${id}`);
+      const data = await r.json();
+      const lista = data.pets || [];
+
+      area.innerHTML = lista.length
+        ? lista.map(criarCard).join("")
+        : "<p>Nenhum pet encontrado.</p>";
+    } catch (_) {
+      erro("Erro ao carregar pets da categoria.");
     }
+  };
+
+  (async () => {
+    await carregarTipos();
+    configurarMenu();
+    configurarBusca();
+    configurarPopup();
+    renderizarPets();
+  })();
+
+  window.__adote = {
+    abrirPopup,
+    fecharPopup,
+    renderizarPets,
+    renderizarPorCategoria,
+  };
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  atualizarCabecalho();
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  atualizarCabecalho();
+});
+
+function atualizarCabecalho() {
+  const usuarioString = localStorage.getItem("usuario_adote");
+  const sessaoEncerrada = localStorage.getItem("sessao_encerrada");
+  const botaoLogins = document.querySelectorAll(".login-desktop .login, .login-mobile-standalone .login");
+
+  botaoLogins.forEach(botaoLogin => {
+    const loginContainer = botaoLogin.parentNode;
+    const novoBotao = document.createElement('a');
+    novoBotao.className = 'login';
+    const isMobileStandalone = loginContainer.classList.contains('login-mobile-standalone');
+
+    if (usuarioString && !sessaoEncerrada) {
+      const usuario = JSON.parse(usuarioString);
+      const nomeUsuario = usuario.email.split("@")[0];
+      novoBotao.href = "#";
+      novoBotao.classList.add("usuario-logado");
+
+      if (isMobileStandalone) {
+        novoBotao.innerHTML = `
+          <img src="../assets/img/avatar.png" class="icon" alt="Usuário">
+          <span>Olá, ${nomeUsuario}</span>
+        `;
+      } else {
+        novoBotao.innerHTML = `
+          <img src="../assets/img/avatar.png" class="icon" alt="Usuário">
+          <span>Olá,<br><small>${nomeUsuario}</small></span>
+        `;
+      }
+
+      novoBotao.addEventListener("click", (e) => {
+        e.preventDefault();
+        abrirPopupLogout();
+      });
+    } else {
+      novoBotao.href = "entrar.html";
+      novoBotao.classList.remove("usuario-logado");
+
+      if (isMobileStandalone) {
+        novoBotao.innerHTML = `
+          <img src="../assets/img/avatar.png" class="icon">
+          <span>Entrar</span>
+        `;
+      } else {
+        novoBotao.innerHTML = `
+          <img src="../assets/img/avatar.png" class="icon">
+          <span>Entrar<br><small>Cadastrar-se</small></span>
+        `;
+      }
+    }
+
+    if (botaoLogin) {
+      loginContainer.replaceChild(novoBotao, botaoLogin);
+    } else {
+      loginContainer.appendChild(novoBotao);
+    }
+  });
 }
 
-init();
+function abrirPopupLogout() {
+  const usuarioString = localStorage.getItem("usuario_adote");
+  const usuario = usuarioString ? JSON.parse(usuarioString) : null;
+  const nomeUsuario = usuario ? usuario.email.split("@")[0] : "Usuário";
+
+  const overlay = document.createElement("div");
+  overlay.className = "popup-overlay-glass";
+
+  overlay.innerHTML = `
+    <div class="popup-bubble-glass">
+        <h3>Olá, ${nomeUsuario}</h3>
+        <div class="botoes">
+            <button id="btn-configuracoes" class="btn-glass-action btn-nao">Configurações</button>
+            <button id="btn-voltar" class="btn-glass-action btn-nao">Voltar</button>
+            <button id="btn-logout-sim" class="btn-glass-action btn-sim">Sair</button>
+        </div>
+    </div>
+  `;
+
+  document.body.appendChild(overlay);
+
+  document.getElementById("btn-configuracoes").addEventListener("click", () => {
+    window.location.href = "configuracoes.html";
+    overlay.style.opacity = "0";
+    setTimeout(() => overlay.remove(), 300);
+  });
+
+  document.getElementById("btn-voltar").addEventListener("click", () => {
+    overlay.style.opacity = "0";
+    setTimeout(() => overlay.remove(), 300);
+  });
+
+  document.getElementById("btn-logout-sim").addEventListener("click", () => {
+    localStorage.setItem("sessao_encerrada", "true");
+    overlay.style.opacity = "0";
+    setTimeout(() => {
+      overlay.remove();
+      atualizarCabecalho();
+    }, 300);
+  });
+
+
+  document.body.appendChild(overlay);
+
+  document.getElementById("btn-logout-nao").addEventListener("click", () => {
+    overlay.style.opacity = "0";
+    setTimeout(() => overlay.remove(), 300);
+  });
+
+  document.getElementById("btn-logout-sim").addEventListener("click", () => {
+    localStorage.setItem("sessao_encerrada", "true");
+    overlay.remove();
+    atualizarCabecalho();
+  });
+}
