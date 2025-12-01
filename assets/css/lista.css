@@ -344,24 +344,25 @@ body {
     text-align: center;
     margin-bottom: 20px;
     font-size: 22px;
-    color: #004f57;
+    color: #ffffff;
 }
 
 .popup-content label {
     font-size: 16px;
     font-weight: 600;
-    color: #004f57;
-    margin-top: 10px;
+    color: #ffffff;
+    display: block;
+    margin: 0 0 6px 0;
 }
 
 .popup-content select {
     width: 100%;
     padding: 10px;
-    margin-top: 6px;
     border-radius: 12px;
     background: rgba(255,255,255,0.36);
     border: 1px solid rgba(255,255,255,0.55);
     outline: none;
+    margin-bottom: 18px;
 }
 
 #btn-aplicar-filtros, 
@@ -466,7 +467,7 @@ body {
     text-align: center;
     margin-bottom: 20px;
     font-size: 22px;
-    color: #004f57;
+    color: #ffffff;
 }
 
 .busca {
