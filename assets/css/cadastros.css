@@ -13,6 +13,25 @@ body {
     align-items: center;
 }
 
+header {
+  background-color: #239fb4;
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+}
+
+header img {
+  width: 140px;
+  height: auto;
+}
+
+.logo-area{
+    position: fixed;
+    top: 18px;
+    left: 18px;
+    z-index: 40;
+}
+
 .cabecalho {
     background-color: #21AFC6;
     display: flex;
