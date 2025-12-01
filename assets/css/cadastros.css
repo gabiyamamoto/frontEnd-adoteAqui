@@ -13,6 +13,25 @@ body {
     align-items: center;
 }
 
+header {
+  background-color: #239fb4;
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+}
+
+header img {
+  width: 140px;
+  height: auto;
+}
+
+.logo-area{
+    position: fixed;
+    top: 18px;
+    left: 18px;
+    z-index: 40;
+}
+
 .cabecalho {
     background-color: #21AFC6;
     display: flex;
@@ -301,11 +320,16 @@ body {
 .tela-oculta {
     opacity: 0;
     pointer-events: none;
-    position: absolute;
+    position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%) scale(.95);
+    transform: translate(-50%, -50%);
     text-align: center;
+    transition: .45s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .tela-visivel {
@@ -345,4 +369,21 @@ body {
         opacity: 1;
         transform: scale(1);
     }
+}
+
+.video-container {
+    align-items: center;
+    width: 80%;
+    max-width: 600px;
+    height: auto;
+    margin: 20px 0;
+    display: flex;
+    justify-content: center;
+    border-radius: 20px;
+}
+
+#video-pet {
+    width: 100%;
+    max-height: 350px;
+    object-fit: cover;
 }
