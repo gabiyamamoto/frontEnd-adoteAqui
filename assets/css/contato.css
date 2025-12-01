@@ -6,13 +6,17 @@
 }
 
 body {
-    background-color: #1db5c2;
+    background-image: url("../img/background.png");
     min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
+<<<<<<<< HEAD:assets/css/cadastros.css
+.cabecalho {
+    background-color: #21AFC6;
+========
 header {
   background-color: #239fb4;
   display: flex;
@@ -30,28 +34,16 @@ header img {
     top: 18px;
     left: 18px;
     z-index: 40;
+>>>>>>>> 61cf3b26afdec33dfc9b09d886db011b8abab217:assets/css/contato.css
     display: flex;
     align-items: center;
-    justify-content: center;
-    width: 72px;
-    height: 72px;
-    border-radius: 50%;
-    background: #ffffff;
-    padding: 6px;
+    justify-content: space-between;
+    padding: 10px 20px;
 }
 
-.logo{
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
-    text-decoration: none;
-}
-
-.logo-img{
-    width: 74px;
-    height: 74px;
+.logo img {
+    width: 140px;
+    height: auto;
 }
 
 .container {
@@ -65,7 +57,7 @@ header img {
 
 .logo-area {
     position: fixed;
-    top: 20px;
+    top: 1px;
     left: 20px;
 }
 
@@ -233,7 +225,6 @@ header img {
         inset -3px -3px 7px rgba(255, 255, 255, 0.40);
 }
 
-/* RESPONSIVIDADE */
 @media (max-width: 950px) {
     .container {
         flex-direction: column;
@@ -249,4 +240,133 @@ header img {
         width: 90%;
         max-width: 430px;
     }
+<<<<<<<< HEAD:assets/css/cadastros.css
+
+    .logo img {
+        opacity: 0;
+    }
+
 }
+
+.fade-out {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: .45s ease;
+}
+
+.fade-in {
+    opacity: 1;
+    transform: translateY(0px);
+    transition: .45s ease;
+}
+
+.spin-glass {
+    animation: girar .6s ease forwards;
+}
+
+@keyframes girar {
+    from { transform: rotateY(0deg); }
+    to { transform: rotateY(360deg); }
+}
+
+.tela-oculta {
+    opacity: 0;
+    pointer-events: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(.95);
+    text-align: center;
+    transition: .45s ease;
+}
+
+.tela-visivel {
+    opacity: 1;
+    pointer-events: all;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+#tela-boas-vindas h1 {
+    color: white;
+    font-size: 3rem;
+    font-weight: 800;
+}
+
+#texto-ola {
+    color: #ffffffcc;
+    font-size: 1.3rem;
+    margin-top: 10px;
+}
+
+.fade-out {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: .45s ease;
+}
+
+.fade-in {
+    opacity: 1;
+    transform: translateY(0px);
+    transition: .45s ease;
+}
+
+.spin-glass {
+    animation: vidroSpin .6s ease forwards;
+}
+
+@keyframes vidroSpin {
+    from { transform: rotateY(0deg); }
+    to { transform: rotateY(360deg); }
+}
+
+.tela-oculta {
+    opacity: 0;
+    pointer-events: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(.95);
+    text-align: center;
+}
+
+.tela-visivel {
+    opacity: 1;
+    pointer-events: all;
+    transition: .45s ease;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.pulse {
+    animation: pulso .55s ease;
+}
+
+@keyframes pulso {
+    0% { transform: translate(-50%, -50%) scale(.9); opacity: 0; }
+    100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+}
+
+.tela-oculta {
+    display: none;
+    opacity: 0;
+}
+
+@keyframes fadeOut {
+    to {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+========
+}
+>>>>>>>> 61cf3b26afdec33dfc9b09d886db011b8abab217:assets/css/contato.css
