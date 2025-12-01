@@ -1,4 +1,4 @@
-const API_URL = "https://backend-adoteaqui.onrender.com";
+const API_URL = "https://backend-adoteaqui-06i1.onrender.com";
 
 document.addEventListener("DOMContentLoaded", () => {
   const $ = (s, root = document) => root.querySelector(s);
@@ -390,7 +390,7 @@ function atualizarCabecalho() {
       } else {
         novoBotao.innerHTML = `
           <img src="../assets/img/avatar.png" class="icon">
-          <span>Entrar<br><small>Cadastrar-se</small></span>
+          <span>Entrar</span>
         `;
       }
     }
