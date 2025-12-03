@@ -157,79 +157,42 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   };
 
-  const configurarBusca = () => {
-    const input =
-      $("#campo-busca") || $("#campo-busca-mobile") || $(".busca input");
+const configurarBusca = () => {
+    const input = $("#campo-busca") || $("#campo-busca-mobile") || $(".busca input");
     if (!input) return;
 
     input.addEventListener(
-      "input",
-      debounce(async (e) => {
-        const termo = (e.target.value || "").toLowerCase().trim();
-        const area = $("#galeria-pets");
+        "input",
+        debounce(async (e) => {
+            const termo = (e.target.value || "").trim();
+            const area = $("#galeria-pets");
 
-        if (!termo) {
-          renderizarPets();
-          return;
-        }
+            if (!termo) {
+                renderizarPets();
+                return;
+            }
 
-        area.innerHTML = "<h2>Buscando...</h2>";
+            area.innerHTML = "<h2>Pegando a ração...</h2>";
 
-        const mapa = {
-          cachorro: ["especie", "cachorro"],
-          cao: ["especie", "cachorro"],
-          gato: ["especie", "gato"],
-          coelho: ["especie", "coelho"],
-          passaro: ["especie", "passaro"],
-          pássaro: ["especie", "passaro"],
-          hamster: ["especie", "hamster"],
-          filhote: ["idade", "filhote"],
-          adulto: ["idade", "adulto"],
-          idoso: ["idade", "idoso"],
-          pequeno: ["tamanho", "pequeno"],
-          medio: ["tamanho", "medio"],
-          médio: ["tamanho", "medio"],
-          grande: ["tamanho", "grande"],
-          macho: ["genero", "macho"],
-          fêmea: ["genero", "fêmea"],
-          fêmea: ["genero", "fêmea"],
-          adotado: ["adotado", "true"],
-          "não adotado": ["adotado", "false"],
-          "nao adotado": ["adotado", "false"],
-        };
-
-        let chave = "";
-        let valor = "";
-
-        for (const k in mapa) {
-          if (termo.includes(k)) {
-            [chave, valor] = mapa[k];
-            break;
-          }
-        }
-
-        if (!chave) {
-          area.innerHTML = `
-            <div style="text-align:center; padding:20px;">
-              <p style="font-size:20px; margin-bottom:10px;">Parece que não há pets disponíveis com essa busca. Que tal tentar outra pesquisa?</p>
-            </div>`;
-          return;
-        }
-
-        try {
-          const r = await fetch(`${API_URL}/pets?${chave}=${valor}`);
-          const data = await r.json();
-          const lista = data.pets || [];
-
-          area.innerHTML = lista.length
-            ? lista.map(criarCard).join("")
-            : "<p>Nenhum pet encontrado.</p>";
-        } catch (e) {
-          erro("Erro na busca.");
-        }
-      }, 250)
+            try {
+                const r = await fetch(`${API_URL}/pets/buscar?termo=${encodeURIComponent(termo)}`);
+                const data = await r.json();
+                
+                if (data.pets && data.pets.length > 0) {
+                    area.innerHTML = data.pets.map(criarCard).join("");
+                } else {
+                    area.innerHTML = `
+                        <div style="text-align:center; padding:20px;">
+                            <p style="font-size:20px; margin-bottom:10px;">O pet que você mencionou ("${termo}") não está aqui.</p>
+                        </div>`;
+                }
+            } catch (error) {
+                console.error('Erro na busca:', error);
+                erro("Erro ao buscar pets. Tente novamente.");
+            }
+        }, 300)
     );
-  };
+};
 
   const debounce = (fn, t = 200) => {
     let id;
