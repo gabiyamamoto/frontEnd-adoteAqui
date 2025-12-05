@@ -1,38 +1,40 @@
-const API_URL = "https://backend-adoteaqui-06i1.onrender.com";
-let tipos = [];
-
-let petAtualNome = "";
-let petAtualTelefone = "";
-
+// Carrega tipos de pet na inicialização
 async function carregarTipos() {
     try {
         const res = await fetch(`${API_URL}/tipos`);
         const data = await res.json();
         tipos = data.tipos || [];
-    } catch (error) { console.error("Erro tipos:", error); }
+    } catch (error) {
+        console.error("Erro ao carregar tipos:", error);
+        document.getElementById("pet-info").innerHTML = "<p>Erro ao carregar os tipos de pets.</p>";
+    }
 }
 
+// Obtém o ID do pet na URL
 function getPetId() {
     const params = new URLSearchParams(window.location.search);
     return params.get("id");
 }
 
+// Carrega os dados do pet usando o ID
 async function carregarPet(id) {
     try {
         const res = await fetch(`${API_URL}/pets/${id}`);
         if (res.ok) {
             const data = await res.json();
             return data.pet || data;
+        } else {
+            const resAll = await fetch(`${API_URL}/pets`);
+            const dataAll = await resAll.json();
+            return dataAll.pets.find(p => String(p.id) === String(id));
         }
-        const resAll = await fetch(`${API_URL}/pets`);
-        const dataAll = await resAll.json();
-        return dataAll.pets.find(p => String(p.id) === String(id));
     } catch (err) {
         console.error(err);
         document.getElementById("pet-info").innerHTML = "<p style='text-align:center;'>Pet não encontrado</p>";
     }
 }
 
+// Renderiza as informações do pet na tela
 function renderizarPet(pet) {
     const tipo = tipos.find(t => Number(t.id) === Number(pet.tipoId));
     
@@ -94,6 +96,7 @@ function renderizarPet(pet) {
     document.getElementById("pet-info").innerHTML = html;
 }
 
+// Obtém o nome do usuário logado
 function getNomeUsuarioLogado() {
     try {
         const usuarioString = localStorage.getItem("usuario_adote");
@@ -103,11 +106,12 @@ function getNomeUsuarioLogado() {
             return usuario.nome || usuario.email.split("@")[0];
         }
     } catch (e) {
-        console.error("Erro ao ler usuario", e);
+        console.error("Erro ao ler usuário:", e);
     }
     return null;
 }
 
+// Abre o modal de adoção
 function abrirModal(nomePet, telefone) {
     petAtualNome = nomePet;
     petAtualTelefone = telefone;
@@ -118,7 +122,7 @@ function abrirModal(nomePet, telefone) {
     document.getElementById('modal-user-nome').innerText = nomeUser;
     
     const artigo = document.getElementById('modal-pet-artigo');
-    if(artigo) artigo.innerText = "o(a)"; 
+    if (artigo) artigo.innerText = "o(a)"; 
 
     const p = document.getElementById('modalGlass');
     const box = p.querySelector('.popup-content');
@@ -135,6 +139,7 @@ function abrirModal(nomePet, telefone) {
     });
 }
 
+// Fecha o modal
 function fecharModal() {
     const p = document.getElementById('modalGlass');
     const box = p?.querySelector('.popup-content');
@@ -147,6 +152,7 @@ function fecharModal() {
     setTimeout(() => p.classList.add("hidden"), 300);
 }
 
+// Envia mensagem no WhatsApp
 function enviarWhatsApp() {
     const telDestino = petAtualTelefone || "5511999999999"; 
     const nomeUser = document.getElementById('modal-user-nome').innerText;
@@ -159,22 +165,5 @@ function enviarWhatsApp() {
     window.open(`https://wa.me/${telDestino}?text=${msg}`, '_blank');
 }
 
-document.addEventListener('click', function(e) {
-    const modal = document.getElementById('modalGlass');
-    if (e.target === modal) {
-        fecharModal();
-    }
-});
-
-async function init() {
-    const id = getPetId();
-    if (!id) {
-        document.getElementById("pet-info").innerHTML = "<p style='text-align:center;'>ID não informado!</p>";
-        return;
-    }
-    await carregarTipos();
-    const pet = await carregarPet(id);
-    if (pet) renderizarPet(pet);
-}
-
-init();
+// Inicialização
+document.addEventListener('DOMContentLoaded', init);
