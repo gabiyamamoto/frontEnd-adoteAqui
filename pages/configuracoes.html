@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configurações da Conta</title>
+
+    <link rel="stylesheet" href="../assets/css/configuracoes.css">
+    <script src="../assets/js/configuracoes.js" defer></script>
+</head>
+<body>
+
+    <div class="config-card">
+
+        <h1 class="titulo">Configurações da Conta</h1>
+
+        <div class="avatar-area">
+            <img id="avatar-preview" src="../assets/img/avatar.png">
+            <label class="btn-trocar-avatar">
+                Trocar avatar
+                <input type="file" id="avatar-input" accept="image/*">
+            </label>
+        </div>
+
+        <form id="form-config" class="form">
+
+            <label>Email</label>
+            <input type="email" id="config-email" class="input-glass">
+
+            <label>Estado</label>
+            <input type="text" id="config-estado" class="input-glass">
+
+            <label>Senha</label>
+            <input type="password" id="config-senha" class="input-glass">
+
+            <button id="btn-salvar" class="btn-salvar">Salvar Alterações</button>
+        </form>
+
+        <button id="btn-sair" class="btn-sair">Sair da Conta</button>
+
+    </div>
+
+</body>
+</html>
