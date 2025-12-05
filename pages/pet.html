@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Detalhes do Pet</title>
   <link rel="stylesheet" href="../assets/css/pet.css">
-  <script src="../assets/js/pet.js"></script>
+  <script src="../assets/js/pet.js" defer></script>
 </head>
 <body>
 
@@ -15,7 +15,27 @@
   </div>
 
   <div id="pet-info">
-    <h2 style="text-align: center; color: #07353f;">Carregando detalhes...</h2>
+      <h2 style="text-align: center; color: #07353f; margin-top: 50px;">Carregando detalhes...</h2>
+  </div>
+
+  <div class="popup-filtros hidden" id="modalGlass">
+      <div class="popup-content">
+          <h2>Oba! 🐾</h2>
+          <p class="subtitulo-modal">Vamos contatar o dono pelo WhatsApp</p>
+          
+          <div class="message-area-glass">
+              <p>
+                  Olá, meu nome é <strong id="modal-user-nome">Visitante</strong>, 
+                  gostaria de mais detalhes sobre <span id="modal-pet-artigo">o(a)</span> 
+                  <strong id="modal-pet-nome">Pet</strong>.
+              </p>
+          </div>
+
+          <div class="modal-actions">
+              <button class="btn-fechar-modal" onclick="fecharModal()">Cancelar</button>
+              <button class="btn-enviar-modal" onclick="enviarWhatsApp()">Enviar Mensagem</button>
+          </div>
+      </div>
   </div>
 
 </body>
