@@ -819,3 +819,43 @@ body {
     transform: scale(1.08);
     box-shadow: 0 0 12px #ffffff55;
 }
+
+@media (max-width: 768px) {
+    
+    .top-mobile {
+        display: flex !important;
+        flex-wrap: wrap;          
+        justify-content: space-between; 
+        align-items: center;
+        padding: 15px 20px;     
+        gap: 15px;     
+    }
+
+    .top-mobile .logo {
+        flex: 0 1 auto;
+    }
+
+    .login-mobile-standalone {
+        display: flex !important;
+        width: auto !important;    /* Remove o 100% que estava antes */
+        padding: 0 !important;     /* Remove padding extra */
+        margin: 0;
+        justify-content: flex-end;
+    }
+
+    .login-mobile-standalone .login {
+        width: auto;               /* Botão fica do tamanho do texto */
+        padding: 8px 12px;
+        font-size: 14px;
+    }
+
+    .busca-mobile {
+        width: 100%;               /* Ocupa toda a largura disponível */
+        order: 3;                  /* Garante que fique por último visualmente */
+        margin: 0;
+    }
+
+    .busca-mobile input {
+        width: 100% !important;    /* Input estica para preencher a div */
+    }
+}
