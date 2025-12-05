@@ -37,7 +37,7 @@
     }
 
     .card-pet {
-        background: #93f6ff;
+        background: #a3dce8;
         padding: 30px;
         border-radius: 25px;
         position: relative;
@@ -119,6 +119,7 @@
         color: #04393f;
         line-height: 1.6;
         font-size: 16px;
+        border: 1px solid rgb(226, 254, 255);
     }
 
     .btn-adotar {
