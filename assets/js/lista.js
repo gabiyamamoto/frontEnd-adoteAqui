@@ -1,56 +1,45 @@
 const API_URL = "https://backend-adoteaqui-06i1.onrender.com";
 
 document.addEventListener("DOMContentLoaded", () => {
-  // Função para selecionar um único elemento
   const $ = (s, root = document) => root.querySelector(s);
-  
-  // Função para selecionar vários elementos
   const $$ = (s, root = document) => [...root.querySelectorAll(s)];
 
-  // Função para exibir mensagens de erro
   const erro = (msg) => {
     const area = $("#galeria-pets");
     if (area) area.innerHTML = `<p style="color:#fff; text-align:center; padding:30px;">${msg}</p>`;
   };
 
-  // Função para abrir o popup de filtros
   const abrirPopup = () => {
     const p = $("#popup-filtros");
     const box = p?.querySelector(".popup-content");
     if (!p || !box) return;
-
-    p.classList.remove("hidden");  // Mostra o popup
+    p.classList.remove("hidden");
     requestAnimationFrame(() => {
-      p.classList.add("show");  // Inicia a animação de exibição
+      p.classList.add("show");
       box.classList.remove("bolha");
-      void box.offsetWidth;  // Força a reflow para animação
+      void box.offsetWidth;
       box.classList.add("bolha");
     });
   };
 
-  // Função para fechar o popup de filtros
   const fecharPopup = () => {
     const p = $("#popup-filtros");
     const box = p?.querySelector(".popup-content");
     if (!p || !box) return;
-
-    box.classList.remove("bolha");  // Remove a animação
-    p.classList.remove("show");  // Fecha o popup
-    setTimeout(() => p.classList.add("hidden"), 300);  // Esconde o popup após animação
+    box.classList.remove("bolha");
+    p.classList.remove("show");
+    setTimeout(() => p.classList.add("hidden"), 300);
   };
 
-  // Função para configurar o menu (desktop e mobile)
   const configurarMenu = () => {
     const desktop = $$(".menu-desktop a:not(#btn-filtrar)");
     const mobile = $$(".menu-mobile a:not(#btn-filtrar-mobile)");
 
-    // Função para ativar o link do menu (marcando o link selecionado)
     const ativar = (link, grupo) => {
       grupo.forEach((a) => a.classList.remove("ativo"));
       link.classList.add("ativo");
     };
 
-    // Configura os links do menu desktop
     [...desktop].forEach((link) => {
       link.addEventListener("click", (e) => {
         e.preventDefault();
@@ -59,7 +48,6 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     });
 
-    // Configura os links do menu mobile
     [...mobile].forEach((link) => {
       link.addEventListener("click", (e) => {
         e.preventDefault();
@@ -68,7 +56,6 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     });
 
-    // Função para abrir as categorias de pets ao clicar no menu
     const abrirCategorias = async (e) => {
       e.preventDefault();
       document.querySelectorAll(".menu a.ativo").forEach((a) => a.classList.remove("ativo"));
@@ -94,7 +81,6 @@ document.addEventListener("DOMContentLoaded", () => {
           )
           .join("");
 
-        // Adiciona o evento de clique para cada categoria de pet
         $$(".categoria-item").forEach((el) => {
           el.addEventListener("click", () => {
             renderizarPorCategoria(el.dataset.id);
@@ -105,7 +91,6 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     };
 
-    // Evento para abrir as categorias ao clicar nos links correspondentes
     [...$$(".menu-desktop a"), ...$$(".menu-mobile a")].forEach((a) => {
       if (a.textContent.toLowerCase().includes("categor")) {
         a.addEventListener("click", (e) => {
@@ -117,14 +102,12 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   };
 
-  // Função para configurar o popup de filtros
   const configurarPopup = () => {
     const btnDesk = $("#btn-filtrar");
     const btnMob = $("#btn-filtrar-mobile");
     const fechar = $("#btn-fechar-popup");
     const aplicar = $("#btn-aplicar-filtros");
 
-    // Configura os botões de filtro para desktop e mobile
     btnDesk?.addEventListener("click", (e) => {
       e.preventDefault();
       e.stopPropagation();
@@ -142,7 +125,6 @@ document.addEventListener("DOMContentLoaded", () => {
       fecharPopup();
     });
 
-    // Aplica os filtros selecionados
     aplicar?.addEventListener("click", async (e) => {
       e.preventDefault();
 
@@ -175,8 +157,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   };
 
-  // Função para configurar a busca por termo
-  const configurarBusca = () => {
+const configurarBusca = () => {
     const input = $("#campo-busca") || $("#campo-busca-mobile") || $(".busca input");
     if (!input) return;
 
@@ -211,9 +192,8 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         }, 300)
     );
-  };
+};
 
-  // Função para "debounce" a busca (evitar múltiplos pedidos)
   const debounce = (fn, t = 200) => {
     let id;
     return (...args) => {
@@ -222,7 +202,6 @@ document.addEventListener("DOMContentLoaded", () => {
     };
   };
 
-  // Carrega os tipos de pets da API
   let tipos = [];
 
   const carregarTipos = async () => {
@@ -235,7 +214,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
-  // Função para criar o card de pet
   const criarCard = (pet) => {
     const tipo = tipos.find((t) => +t.id === +pet.tipoId);
     const img = tipo?.imageUrl || pet.imageUrl || "../img/default.jpg";
@@ -249,7 +227,6 @@ document.addEventListener("DOMContentLoaded", () => {
     `;
   };
 
-  // Função para embaralhar a lista de pets (para exibição aleatória)
   const embaralhar = (arr) => {
     for (let i = arr.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
@@ -258,7 +235,6 @@ document.addEventListener("DOMContentLoaded", () => {
     return arr;
   };
 
-  // Função para renderizar os pets na galeria
   const renderizarPets = async () => {
     const area = $("#galeria-pets");
     if (!area) return;
@@ -289,7 +265,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
-  // Função para renderizar os pets por categoria
   const renderizarPorCategoria = async (id) => {
     const area = $("#galeria-pets");
     if (!area) return;
@@ -309,7 +284,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
-  // Inicializa a aplicação
   (async () => {
     await carregarTipos();
     configurarMenu();
@@ -318,7 +292,6 @@ document.addEventListener("DOMContentLoaded", () => {
     renderizarPets();
   })();
 
-  // Expõe funções globais para uso em outras partes do código
   window.__adote = {
     abrirPopup,
     fecharPopup,
@@ -327,7 +300,6 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 });
 
-// Função para atualizar o cabeçalho (menu) com informações do usuário
 document.addEventListener("DOMContentLoaded", () => {
   atualizarCabecalho();
 });
@@ -336,7 +308,6 @@ document.addEventListener("DOMContentLoaded", () => {
   atualizarCabecalho();
 });
 
-// Função para atualizar o cabeçalho com os dados do usuário (logado ou deslogado)
 function atualizarCabecalho() {
   const usuarioString = localStorage.getItem("usuario_adote");
   const sessaoEncerrada = localStorage.getItem("sessao_encerrada");
@@ -348,12 +319,14 @@ function atualizarCabecalho() {
     novoBotao.className = "login";
     const isMobileStandalone = loginContainer.classList.contains("login-mobile-standalone");
 
-    //SE O USUÁRIO ESTÁ LOGADO
+    // ============================
+    //   SE O USUÁRIO ESTÁ LOGADO
+    // ============================
     if (usuarioString && !sessaoEncerrada) {
       const usuario = JSON.parse(usuarioString);
       const nomeUsuario = usuario.email.split("@")[0];
 
-      // PEGAR AVATAR DO USUÁRIO (SE TIVER)
+      // ⬇️ PEGAR AVATAR DO USUÁRIO (SE TIVER)
       const avatar = usuario.avatar || "../assets/img/avatar.png";
 
       novoBotao.href = "#";
@@ -377,8 +350,10 @@ function atualizarCabecalho() {
       });
 
     } 
-
-    //USUÁRIO DESLOGADO
+    
+    // ============================
+    //       USUÁRIO DESLOGADO
+    // ============================
     else {
       novoBotao.href = "entrar.html";
       novoBotao.classList.remove("usuario-logado");
@@ -393,7 +368,6 @@ function atualizarCabecalho() {
   });
 }
 
-// Função para abrir o popup de logout
 function abrirPopupLogout() {
   const usuarioString = localStorage.getItem("usuario_adote");
   const usuario = usuarioString ? JSON.parse(usuarioString) : null;
@@ -415,20 +389,17 @@ function abrirPopupLogout() {
 
   document.body.appendChild(overlay);
 
-  // Função para ir para configurações
   document.getElementById("btn-configuracoes").addEventListener("click", () => {
     window.location.href = "configuracoes.html";
     overlay.style.opacity = "0";
     setTimeout(() => overlay.remove(), 300);
   });
 
-  // Função para voltar ao pop-up de login
   document.getElementById("btn-voltar").addEventListener("click", () => {
     overlay.style.opacity = "0";
     setTimeout(() => overlay.remove(), 300);
   });
 
-  // Função para sair da conta
   document.getElementById("btn-logout-sim").addEventListener("click", () => {
     localStorage.setItem("sessao_encerrada", "true");
     overlay.style.opacity = "0";
@@ -436,5 +407,19 @@ function abrirPopupLogout() {
       overlay.remove();
       atualizarCabecalho();
     }, 300);
+  });
+
+
+  document.body.appendChild(overlay);
+
+  document.getElementById("btn-logout-nao").addEventListener("click", () => {
+    overlay.style.opacity = "0";
+    setTimeout(() => overlay.remove(), 300);
+  });
+
+  document.getElementById("btn-logout-sim").addEventListener("click", () => {
+    localStorage.setItem("sessao_encerrada", "true");
+    overlay.remove();
+    atualizarCabecalho();
   });
 }
