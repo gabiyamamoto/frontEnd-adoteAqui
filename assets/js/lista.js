@@ -315,24 +315,31 @@ function atualizarCabecalho() {
 
   botaoLogins.forEach(botaoLogin => {
     const loginContainer = botaoLogin.parentNode;
-    const novoBotao = document.createElement('a');
-    novoBotao.className = 'login';
-    const isMobileStandalone = loginContainer.classList.contains('login-mobile-standalone');
+    const novoBotao = document.createElement("a");
+    novoBotao.className = "login";
+    const isMobileStandalone = loginContainer.classList.contains("login-mobile-standalone");
 
+    // ============================
+    //   SE O USUÁRIO ESTÁ LOGADO
+    // ============================
     if (usuarioString && !sessaoEncerrada) {
       const usuario = JSON.parse(usuarioString);
       const nomeUsuario = usuario.email.split("@")[0];
+
+      // ⬇️ PEGAR AVATAR DO USUÁRIO (SE TIVER)
+      const avatar = usuario.avatar || "../assets/img/avatar.png";
+
       novoBotao.href = "#";
       novoBotao.classList.add("usuario-logado");
 
       if (isMobileStandalone) {
         novoBotao.innerHTML = `
-          <img src="../assets/img/avatar.png" class="icon" alt="Usuário">
+          <img src="${avatar}" class="icon" alt="Usuário">
           <span>Olá, ${nomeUsuario}</span>
         `;
       } else {
         novoBotao.innerHTML = `
-          <img src="../assets/img/avatar.png" class="icon" alt="Usuário">
+          <img src="${avatar}" class="icon" alt="Usuário">
           <span>Olá,<br><small>${nomeUsuario}</small></span>
         `;
       }
@@ -341,28 +348,23 @@ function atualizarCabecalho() {
         e.preventDefault();
         abrirPopupLogout();
       });
-    } else {
+
+    } 
+    
+    // ============================
+    //       USUÁRIO DESLOGADO
+    // ============================
+    else {
       novoBotao.href = "entrar.html";
       novoBotao.classList.remove("usuario-logado");
 
-      if (isMobileStandalone) {
-        novoBotao.innerHTML = `
-          <img src="../assets/img/avatar.png" class="icon">
-          <span>Entrar</span>
-        `;
-      } else {
-        novoBotao.innerHTML = `
-          <img src="../assets/img/avatar.png" class="icon">
-          <span>Entrar</span>
-        `;
-      }
+      novoBotao.innerHTML = `
+        <img src="../assets/img/avatar.png" class="icon">
+        <span>Entrar</span>
+      `;
     }
 
-    if (botaoLogin) {
-      loginContainer.replaceChild(novoBotao, botaoLogin);
-    } else {
-      loginContainer.appendChild(novoBotao);
-    }
+    loginContainer.replaceChild(novoBotao, botaoLogin);
   });
 }
 

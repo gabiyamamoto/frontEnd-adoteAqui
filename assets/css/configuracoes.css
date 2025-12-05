@@ -1,0 +1,149 @@
+body {
+    background-image: url("../img/background.png");
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-family: 'Poppins', sans-serif;
+}
+
+.config-card {
+    width: 95%;
+    max-width: 420px;
+    padding: 30px;
+
+    border-radius: 28px;
+    background: rgba(255, 255, 255, 0.22);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+
+    border: 1.6px solid rgba(255, 255, 255, 0.45);
+    box-shadow:
+        0 12px 28px rgba(0, 0, 0, 0.25),
+        inset 4px 4px 12px rgba(255, 255, 255, 0.35),
+        inset -4px -4px 12px rgba(0,0,0,0.10);
+
+    animation: fadeIn .6s ease;
+}
+
+.titulo {
+    text-align: center;
+    font-size: 24px;
+    color: #ffffff;
+    margin-bottom: 25px;
+
+    text-shadow: 0 3px 8px rgba(0,0,0,0.35);
+}
+
+.avatar-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+#avatar-preview {
+    width: 120px;
+    height: 120px;
+    border-radius: 100%;
+    border: 2px solid rgba(255,255,255,0.5);
+    object-fit: cover;
+
+    box-shadow:
+        inset 2px 2px 8px rgba(255,255,255,0.4),
+        0 6px 18px rgba(0,0,0,0.25);
+}
+
+.btn-trocar-avatar {
+    margin-top: 12px;
+    background: rgba(255,255,255,0.3);
+    padding: 8px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    color: #fff;
+    font-weight: 500;
+    border: 1px solid rgba(255,255,255,0.4);
+    transition: .3s;
+}
+
+.btn-trocar-avatar:hover {
+    background: rgba(255,255,255,0.45);
+}
+
+.btn-trocar-avatar input {
+    display: none;
+}
+
+.form label {
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.input-glass {
+    width: 100%;
+    margin: 5px 0 18px;
+    padding: 12px;
+
+    font-size: 15px;
+    border-radius: 16px;
+
+    background: rgba(255,255,255,0.32);
+    border: 1px solid rgba(255,255,255,0.55);
+
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+
+    outline: none;
+
+    box-shadow:
+        inset 4px 4px 10px rgba(255,255,255,0.35),
+        inset -4px -4px 10px rgba(0,0,0,0.08);
+}
+
+.btn-salvar {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 16px;
+    margin-top: 10px;
+
+    background: #21AFC6;
+    color: white;
+    font-size: 17px;
+    font-weight: 600;
+
+    cursor: pointer;
+    transition: .25s;
+}
+
+.btn-salvar:hover {
+    background: #199cb0;
+}
+
+.btn-sair {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 16px;
+
+    margin-top: 25px;
+    background: rgba(255,80,80,0.75);
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: .25s;
+}
+
+.btn-sair:hover {
+    background: rgba(255,50,50,0.9);
+}
+
+@keyframes fadeIn {
+    0% { opacity: 0; transform: translateY(25px); }
+    100% { opacity: 1; transform: translateY(0); }
+}

@@ -804,3 +804,18 @@ body {
         opacity: 0.9;
     }
 }
+
+.login .icon {
+    width: 42px; 
+    height: 42px; 
+    border-radius: 50%;
+    object-fit: cover; 
+    border: 2px solid #fff6; 
+    box-shadow: 0 0 8px #ffffff33; 
+    transition: 0.25s ease;
+}
+
+.login.usuario-logado:hover .icon {
+    transform: scale(1.08);
+    box-shadow: 0 0 12px #ffffff55;
+}
