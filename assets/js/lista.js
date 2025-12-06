@@ -110,6 +110,19 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   };
 
+  function carregarRegioes() {
+    const select = document.querySelector("#filtro-regiao");
+    if (!select) return;
+
+    const regioes = JSON.parse(localStorage.getItem("regioes_salvas") || "[]");
+
+    select.innerHTML = `<option value="">Todas</option>`;
+
+    regioes.forEach((reg) => {
+        select.innerHTML += `<option value="${reg}">${reg}</option>`;
+    });
+}
+
   const configurarPopup = () => {
     const btnDesk = $("#btn-filtrar");
     const btnMob = $("#btn-filtrar-mobile");
@@ -136,15 +149,19 @@ document.addEventListener("DOMContentLoaded", () => {
     aplicar?.addEventListener("click", async (e) => {
       e.preventDefault();
 
-      const filtro = {
+    const filtro = {
         especie: $("#filtro-especie")?.value || "",
         idade: $("#filtro-idade")?.value || "",
         tamanho: $("#filtro-tamanho")?.value || "",
         genero: $("#filtro-genero")?.value || "",
-      };
+        adotado: $("#filtro-adocao")?.value || "",
+        regiao: $("#filtro-regiao")?.value || "",
+    };
 
       const params = new URLSearchParams();
-      Object.entries(filtro).forEach(([k, v]) => v && params.append(k, v));
+        Object.entries(filtro).forEach(([k, v]) => {
+          if (v) params.append(k, v);
+      });
 
       const area = $("#galeria-pets");
       if (area) area.innerHTML = "<h2>Filtrando...</h2>";
@@ -334,6 +351,8 @@ document.addEventListener("DOMContentLoaded", () => {
 document.addEventListener("DOMContentLoaded", () => {
   atualizarCabecalho();
 });
+
+carregarRegioes();
 
 function atualizarCabecalho() {
   const usuarioString = localStorage.getItem("usuario_adote");
