@@ -1,58 +1,115 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Adote Aqui</title>
-  <link rel="stylesheet" href="./assets/css/index.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adote um Pet - Encontre seu novo melhor amigo</title>
+    <link rel="stylesheet" href="./assets/css/index.css">
+    <script src="./assets/js/index.js" defer></script>
 </head>
 <body>
-
   <header>
-    <img src="./assets/img/logo.png" alt="Logo Adote Aqui">
-  
-    <nav class="menu-links">
-      <a href="./pages/lista.html"
-      class="btn-menu">VER PETS</a>
-    </nav>
-  
-    <div class="user-area">
-      <div class="user-links">
-  <a href="./pages/entrar.html" class="btn-menu entrar-link">Entrar</a>
-</div>
-
-    </div>
+      <img src="./assets/img/logo.png" alt="Logo_Adote_Aqui">
+      
+      <nav class="menu-links">
+          <a href="./pages/lista.html" class="btn-menu">VER PETS</a>
+      </nav>
+      
+      <div class="user-area">
+          <div class="user-links">
+              <a href="./pages/entrar.html" class="btn-menu">Entrar</a>
+          </div>
+      </div>
   </header>
 
-  <section class="main-banner">
-    <div class="welcome-message">
-      <h1>BEM-VINDO</h1>
-      <h2>AO ADOTE AQUI!</h2>
-      <p>
-        Aqui, seu pet é parte da nossa família.<br>
-        Venha nos visitar e descobrir tudo o que temos a oferecer para seu melhor amigo.
-      </p>
-    </div>
-    <div class="dog-image">
-      <img src="./assets/img/dog_image.png" alt="Cachorro feliz">
-    </div>
-    <a 
-  href="https://wa.me/5511999999999?text=Olá!%20Quero%20saber%20mais%20sobre%20adoção%20🐶"
-  class="telefone"
-  target="_blank"
->
-  <div class="contact-icon">
-    <img src="./assets/img/avatar.png" alt="Ícone telefone">
-  </div>
+    <section class="hero">
+        <div class="hero-content">
+            <p class="subtitle">🐾 Bem-vindo ao nosso lar</p>
+            <h1>ENCONTRE SEU NOVO<br>MELHOR AMIGO</h1>
+            <div class="info-box">
+                Faça uma visita para se tornar fã da nova casa do seu pet. Você e seu pet vão adorar o espaço e ambiente que o receberá!
+            </div>
+            <a href="#pets" class="hero-btn">Quero Adotar</a>
+        </div>
+        <div class="hero-image">
+            <img src="./assets/img/dog_image.png" alt="">
+        </div>
+    </section>
 
-  <p>Fale com a gente | Adote aqui!</p>
-</a>
+    <section class="como-adotar">
+        <h2>Como adotar?</h2>
+        <p>Transforme sua vida e dê um lar cheio de amor para um pet que precisa de você.</p>
+        <div class="steps">
+            <div class="step-card">
+                <div class="step-icon">🔍</div>
+                <h3>Escolha seu Pet</h3>
+                <p>Browse nosso banco de pets disponíveis</p>
+            </div>
+            <div class="step-card">
+                <div class="step-icon">📋</div>
+                <h3>Preencha o Cadastro</h3>
+                <p>Complete o formulário de adoção</p>
+            </div>
+            <div class="step-card">
+                <div class="step-icon">🏠</div>
+                <h3>Visite o Pet</h3>
+                <p>Conheça pessoalmente seu futuro amigo</p>
+            </div>
+            <div class="step-card">
+                <div class="step-icon">❤️</div>
+                <h3>Leve para Casa</h3>
+                <p>Finalize a adoção e seja feliz!</p>
+            </div>
+        </div>
+    </section>
 
-  </section>
+    <section class="pets-destaque" id="pets">
+        <h2>Pets em destaques</h2>
+        <p>Veja os pets disponíveis para adoção em nosso lar</p>
+        <div class="pets-grid" id="petsGrid">
+            <div class="loading">Carregando pets disponíveis...</div>
+        </div>
+    </section>
 
-  <footer class="site-footer">
-  © 2025 - Adote Aqui
-</footer>
-
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Adote Aqui - 2025</h3>
+                <p>Transformando vidas através da adoção responsável desde 2020.</p>
+                <p style="margin-top: 15px;">📍 Rua dos Animais, 123<br>São Paulo - SP</p>
+                <p>📞 (11) 1234-5678</p>
+            </div>
+            <div class="footer-section">
+                <h3>Informações de Visita</h3>
+                <ul>
+                    <li>>Horários de visitação</li>
+                    <li>>Como chegar</li>
+                    <li>>Agende sua visita</li>
+                    <li>>Requisitos para adoção</li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Ajude os Pets</h3>
+                <ul>
+                    <li>Faça uma doação</li>
+                    <li>Seja voluntário</li>
+                    <li>Apadrinhe um pet></li>
+                    <li>Campanhas ativas</li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Informações de Ações</h3>
+                <ul>
+                    <li>Eventos e feiras</li>
+                    <li>Campanhas de castração</li>
+                    <li>Parcerias</li>
+                    <li>Transparência</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Adote Aqui</p>
+        </div>
+    </footer>
 </body>
 </html>
