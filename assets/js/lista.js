@@ -219,7 +219,7 @@ const configurarBusca = () => {
     const img = tipo?.imageUrl || pet.imageUrl || "../img/default.jpg";
 
     return `
-      <a class="card card-link" href="../../pages/pet.html?id=${pet.id}">
+      <a class="card card-link" href="../../frontEnd-adoteAqui/pages/pet.html?id=${pet.id}">
         <img src="${img}" alt="${pet.nome}">
         <h2>${pet.nome}</h2>
         <p>${pet.local || pet.cidade || "Local não informado"}</p>
