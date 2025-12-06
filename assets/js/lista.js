@@ -1,5 +1,13 @@
 const API_URL = "https://backend-adoteaqui-06i1.onrender.com";
 
+function mostrarLoader() {
+    document.getElementById("loader").style.display = "flex";
+}
+
+function esconderLoader() {
+    document.getElementById("loader").style.display = "none";
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   const $ = (s, root = document) => root.querySelector(s);
   const $$ = (s, root = document) => [...root.querySelectorAll(s)];
@@ -161,26 +169,29 @@ const configurarBusca = () => {
     const inputDesktop = document.querySelector("#campo-busca");
     const inputMobile = document.querySelector("#campo-busca-mobile");
 
-    // Escolhe o certo com base no tamanho da tela
     const input = window.innerWidth <= 768 ? inputMobile : inputDesktop;
-
     if (!input) return;
 
     input.addEventListener(
         "input",
         debounce(async (e) => {
+            mostrarLoader();
+
             const termo = e.target.value.trim().toLowerCase();
             const area = document.querySelector("#galeria-pets");
 
             if (!termo) {
-                renderizarPets();
+                await renderizarPets();
+                esconderLoader();
                 return;
             }
 
             area.innerHTML = "<h2>Pegando a ração...</h2>";
 
             try {
-                const r = await fetch(`${API_URL}/pets/buscar?termo=${encodeURIComponent(termo)}`);
+                const r = await fetch(
+                    `${API_URL}/pets/buscar?termo=${encodeURIComponent(termo)}`
+                );
                 const data = await r.json();
 
                 if (data.pets?.length) {
@@ -194,10 +205,11 @@ const configurarBusca = () => {
             } catch {
                 erro("Erro na busca.");
             }
+
+            esconderLoader();
         }, 300)
     );
 };
-
 
   const debounce = (fn, t = 200) => {
     let id;
@@ -241,52 +253,62 @@ const configurarBusca = () => {
   };
 
   const renderizarPets = async () => {
-    const area = $("#galeria-pets");
-    if (!area) return;
+      mostrarLoader();
 
-    area.innerHTML = "<h2>Colocando coleira nos dados…</h2>";
+      const area = $("#galeria-pets");
+      if (!area) return;
 
-    try {
-      const r = await fetch(`${API_URL}/pets`);
-      const data = await r.json();
-      let lista = embaralhar(data.pets || []);
+      area.innerHTML = "<h2>Colocando coleira nos dados…</h2>";
 
-      area.innerHTML = "";
+      try {
+          const r = await fetch(`${API_URL}/pets`);
+          const data = await r.json();
+          let lista = embaralhar(data.pets || []);
 
-      if (!lista.length) {
-        area.innerHTML = "<p>Acho que os pets estão se escondendo… mas nada que um pouco de ração não resolva!</p>";
-        return;
+          area.innerHTML = "";
+
+          if (!lista.length) {
+              area.innerHTML =
+                  "<p>Acho que os pets estão se escondendo… mas nada que um pouco de ração não resolva!</p>";
+              esconderLoader();
+              return;
+          }
+
+          lista.forEach((pet, i) => {
+              const d = document.createElement("div");
+              d.innerHTML = criarCard(pet);
+              const c = d.firstElementChild;
+              c.style.animationDelay = `${i * 40}ms`;
+              area.appendChild(c);
+          });
+      } catch (_) {
+          erro("Erro ao carregar pets.");
       }
 
-      lista.forEach((pet, i) => {
-        const d = document.createElement("div");
-        d.innerHTML = criarCard(pet);
-        const c = d.firstElementChild;
-        c.style.animationDelay = `${i * 40}ms`;
-        area.appendChild(c);
-      });
-    } catch (_) {
-      erro("Erro ao carregar pets.");
-    }
+      esconderLoader();
   };
 
   const renderizarPorCategoria = async (id) => {
-    const area = $("#galeria-pets");
-    if (!area) return;
+      mostrarLoader(); 
 
-    area.innerHTML = "<h2>Carregando pets...</h2>";
+      const area = $("#galeria-pets");
+      if (!area) return;
 
-    try {
-      const r = await fetch(`${API_URL}/pets?tipoId=${id}`);
-      const data = await r.json();
-      const lista = data.pets || [];
+      area.innerHTML = "<h2>Carregando pets...</h2>";
 
-      area.innerHTML = lista.length
-        ? lista.map(criarCard).join("")
-        : "<p>Nenhum pet encontrado.</p>";
-    } catch (_) {
-      erro("Erro ao carregar pets da categoria.");
-    }
+      try {
+          const r = await fetch(`${API_URL}/pets?tipoId=${id}`);
+          const data = await r.json();
+          const lista = data.pets || [];
+
+          area.innerHTML = lista.length
+              ? lista.map(criarCard).join("")
+              : "<p>Nenhum pet encontrado.</p>";
+      } catch (_) {
+          erro("Erro ao carregar pets da categoria.");
+      }
+
+      esconderLoader(); 
   };
 
   (async () => {
