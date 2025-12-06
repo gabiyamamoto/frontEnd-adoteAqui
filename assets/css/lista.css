@@ -837,25 +837,25 @@ body {
 
     .login-mobile-standalone {
         display: flex !important;
-        width: auto !important;    /* Remove o 100% que estava antes */
-        padding: 0 !important;     /* Remove padding extra */
+        width: auto !important;
+        padding: 0 !important;  
         margin: 0;
         justify-content: flex-end;
     }
 
     .login-mobile-standalone .login {
-        width: auto;               /* Botão fica do tamanho do texto */
+        width: auto; 
         padding: 8px 12px;
         font-size: 14px;
     }
 
     .busca-mobile {
-        width: 100%;               /* Ocupa toda a largura disponível */
-        order: 3;                  /* Garante que fique por último visualmente */
+        width: 100%; 
+        order: 3; 
         margin: 0;
     }
 
     .busca-mobile input {
-        width: 100% !important;    /* Input estica para preencher a div */
+        width: 100% !important;
     }
 }
