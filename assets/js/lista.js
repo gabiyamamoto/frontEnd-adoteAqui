@@ -158,14 +158,19 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
 const configurarBusca = () => {
-    const input = $("#campo-busca") || $("#campo-busca-mobile") || $(".busca input");
+    const inputDesktop = document.querySelector("#campo-busca");
+    const inputMobile = document.querySelector("#campo-busca-mobile");
+
+    // Escolhe o certo com base no tamanho da tela
+    const input = window.innerWidth <= 768 ? inputMobile : inputDesktop;
+
     if (!input) return;
 
     input.addEventListener(
         "input",
         debounce(async (e) => {
-            const termo = (e.target.value || "").trim();
-            const area = $("#galeria-pets");
+            const termo = e.target.value.trim().toLowerCase();
+            const area = document.querySelector("#galeria-pets");
 
             if (!termo) {
                 renderizarPets();
@@ -177,22 +182,22 @@ const configurarBusca = () => {
             try {
                 const r = await fetch(`${API_URL}/pets/buscar?termo=${encodeURIComponent(termo)}`);
                 const data = await r.json();
-                
-                if (data.pets && data.pets.length > 0) {
+
+                if (data.pets?.length) {
                     area.innerHTML = data.pets.map(criarCard).join("");
                 } else {
                     area.innerHTML = `
                         <div style="text-align:center; padding:20px;">
-                            <p style="font-size:20px; margin-bottom:10px;">O pet que você mencionou ("${termo}") não está aqui.</p>
+                            <p style="font-size:18px;">Nenhum pet com "${termo}".</p>
                         </div>`;
                 }
-            } catch (error) {
-                console.error('Erro na busca:', error);
-                erro("Erro ao buscar pets. Tente novamente.");
+            } catch {
+                erro("Erro na busca.");
             }
         }, 300)
     );
 };
+
 
   const debounce = (fn, t = 200) => {
     let id;
