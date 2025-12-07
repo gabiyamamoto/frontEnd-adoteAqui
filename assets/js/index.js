@@ -124,77 +124,47 @@ function abrirPopupLogout() {
     const nomeUsuario = usuario ? usuario.email.split("@")[0] : "Usuário";
 
     const overlay = document.createElement("div");
-    overlay.style.cssText = `
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background: rgba(0, 0, 0, 0.5);
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                z-index: 10000;
-                animation: fadeIn 0.3s;
-            `;
+    overlay.className = "popup-filtros show";
 
-    overlay.innerHTML = `
-                <div style="
-                    background: white;
-                    padding: 30px;
-                    border-radius: 15px;
-                    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
-                    text-align: center;
-                    max-width: 400px;
-                    animation: slideIn 0.3s;
-                ">
-                    <h3 style="margin-bottom: 20px; color: #239fb4;">Olá, ${nomeUsuario}</h3>
-                    <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
-                        <button id="btn-configuracoes" style="
-                            padding: 10px 20px;
-                            border: none;
-                            border-radius: 8px;
-                            background: #239fb4;
-                            color: white;
-                            cursor: pointer;
-                            font-size: 1em;
-                            transition: 0.3s;
-                        ">Configurações</button>
-                        <button id="btn-voltar" style="
-                            padding: 10px 20px;
-                            border: none;
-                            border-radius: 8px;
-                            background: #ccc;
-                            color: #333;
-                            cursor: pointer;
-                            font-size: 1em;
-                            transition: 0.3s;
-                        ">Voltar</button>
-                        <button id="btn-logout-sim" style="
-                            padding: 10px 20px;
-                            border: none;
-                            border-radius: 8px;
-                            background: #ff5722;
-                            color: white;
-                            cursor: pointer;
-                            font-size: 1em;
-                            transition: 0.3s;
-                        ">Sair</button>
-                    </div>
-                </div>
-            `;
+    const caixa = document.createElement("div");
+    caixa.className = "popup-content bolha";
 
+    caixa.innerHTML = `
+        <h2 style="margin-bottom: 10px;">Olá, ${nomeUsuario}</h2>
+
+        <button id="btn-configuracoes" style="
+            width: 100%; margin-top: 10px; padding: 10px;
+            border-radius: 12px; border: none;
+            background: rgba(255,255,255,0.35);
+            color: #fff; font-size: 16px; cursor: pointer;">
+            Configurações
+        </button>
+
+        <button id="btn-voltar" class="btn-fechar">
+            Voltar
+        </button>
+
+        <button id="btn-logout-sim" style="
+            width: 100%; margin-top: 15px; padding: 10px;
+            border-radius: 12px; border: none;
+            background: #ff4d4d; color: white;
+            font-size: 16px; cursor: pointer;">
+            Sair
+        </button>
+    `;
+
+    overlay.appendChild(caixa);
     document.body.appendChild(overlay);
 
-    document.getElementById("btn-configuracoes")?.addEventListener("click", () => {
+    document.getElementById("btn-configuracoes").addEventListener("click", () => {
         window.location.href = "pages/configuracoes.html";
     });
 
-    document.getElementById("btn-voltar")?.addEventListener("click", () => {
+    document.getElementById("btn-voltar").addEventListener("click", () => {
         overlay.remove();
     });
 
-    document.getElementById("btn-logout-sim")?.addEventListener("click", () => {
+    document.getElementById("btn-logout-sim").addEventListener("click", () => {
         localStorage.setItem("sessao_encerrada", "true");
         overlay.remove();
         atualizarCabecalho();
