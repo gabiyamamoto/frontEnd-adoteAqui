@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,69 +8,78 @@
     <link rel="stylesheet" href="../assets/css/lista.css">
     <script src="../assets/js/lista.js" defer></script>
 </head>
+
 <body>
-<header class="cabecalho">
+    <header class="cabecalho">
 
-    <div class="linha-desktop">
-        <div class="logo">
-            <a href="../index.html">
-                <img src="../assets/img/logo.png">
-            </a>
+        <div class="linha-desktop">
+            <div class="logo">
+                <a href="../index.html">
+                    <img src="../assets/img/logo.png">
+                </a>
+            </div>
+
+            <div class="busca busca-desktop">
+                <input id="campo-busca" type="text" placeholder="Pesquisar" autocomplete="off" />
+            </div>
+
+            <nav class="menu menu-desktop">
+                <ul>
+                    <li><a href="#" class="ativo">Geral</a></li>
+                    <li><a href="#" id="btn-filtrar">Filtrar</a></li>
+                </ul>
+            </nav>
+
+            <div class="login-desktop">
+                <a href="#" class="login">
+                    <img src="../assets/img/avatar.png" class="icon">
+                    <span>Entrar</span>
+                </a>
+            </div>
         </div>
 
-        <div class="busca busca-desktop">
-            <input id="campo-busca" type="text" placeholder="Pesquisar" autocomplete="off" />
+        <div class="top-mobile">
+
+            <div class="logo">
+                <a href="../index.html">
+                    <img src="../assets/img/logo.png">
+                </a>
+            </div>
+
+            <div class="login-mobile-standalone">
+                <a href="entrar.html" class="login">
+                    <img src="../assets/img/avatar.png" class="icon">
+                    <span>Entrar</span>
+                </a>
+            </div>
+
         </div>
 
-        <nav class="menu menu-desktop">
+        <div class="busca busca-mobile">
+            <input id="campo-busca-mobile" type="text" placeholder="Pesquisar" autocomplete="off" />
+        </div>
+
+
+        <nav class="menu menu-mobile">
             <ul>
                 <li><a href="#" class="ativo">Geral</a></li>
-                <li><a href="#" id="btn-filtrar">Filtrar</a></li>
+                <li><a id="btn-filtrar-mobile" class="btn-filtrar-mobile">Filtrar</a></li>
             </ul>
         </nav>
 
-        <div class="login-desktop">
-            <a href="#" class="login">
-                <img src="../assets/img/avatar.png" class="icon">
-                <span>Entrar</span>
-            </a>
-        </div>
-    </div>
-
-    <div class="top-mobile">
-
-        <div class="logo">
-            <a href="../index.html">
-                <img src="../assets/img/logo.png">
-            </a>
-        </div>
-
-        <div class="login-mobile-standalone">
-            <a href="entrar.html" class="login">
-                <img src="../assets/img/avatar.png" class="icon">
-                <span>Entrar</span>
-            </a>
-        </div>
-
-    </div>
-
-    <div class="busca busca-mobile">
-        <input id="campo-busca-mobile" type="text" placeholder="Pesquisar" autocomplete="off" />
-    </div>
-
-
-    <nav class="menu menu-mobile">
-        <ul>
-            <li><a href="#" class="ativo">Geral</a></li>
-            <li><a id="btn-filtrar-mobile" class="btn-filtrar-mobile">Filtrar</a></li>
-        </ul>
-    </nav>
-
-</header>
+    </header>
 
     <div id="popup-filtros" class="popup-filtros hidden">
         <div class="popup-content">
+
             <h2>Filtrar pets</h2>
+
+            <label>Status</label>
+            <div class="grupo-botoes" id="filtro-status">
+                <button data-valor="todos" class="ativo">Todos</button>
+                <button data-valor="disponivel">Disponíveis</button>
+                <button data-valor="adotado">Adotados</button>
+            </div>
 
             <label>Espécie</label>
             <select id="filtro-especie">
@@ -104,32 +114,22 @@
                 <option value="femea">Fêmea</option>
             </select>
 
-            <label>Adoção</label>
-            <select id="filtro-adocao">
-                <option value="">Todos</option>
-                <option value="false">Disponíveis</option>
-                <option value="true">Adotados</option>
-            </select>
-
-            <label>Região</label>
-            <select id="filtro-regiao">
-                <option value="">Todas</option>
-            </select>
-
             <button id="btn-aplicar-filtros">Aplicar</button>
             <button id="btn-fechar-popup" class="btn-fechar">Fechar</button>
+
         </div>
     </div>
 
     <main class="conteudo">
         <section class="galeria" id="galeria-pets">
-            </section>
-            
+        </section>
+
     </main>
 
-<div id="loader" class="loader-overlay">
-    <div class="spinner"></div>
-</div>
+    <div id="loader" class="loader-overlay">
+        <div class="spinner"></div>
+    </div>
 
 </body>
+
 </html>
