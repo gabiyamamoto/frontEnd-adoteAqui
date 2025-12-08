@@ -7,43 +7,13 @@
 
 body {
     background-image: url("../img/background.png");
+    background-size: cover;
+    background-position: center;
     min-height: 100vh;
+
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-<<<<<<<< HEAD:assets/css/cadastros.css
-.cabecalho {
-    background-color: #21AFC6;
-========
-header {
-  background-color: #239fb4;
-  display: flex;
-  align-items: center;
-  padding: 10px 20px;
-}
-
-header img {
-  width: 140px;
-  height: auto;
-}
-
-.logo-area{
-    position: fixed;
-    top: 18px;
-    left: 18px;
-    z-index: 40;
->>>>>>>> 61cf3b26afdec33dfc9b09d886db011b8abab217:assets/css/contato.css
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px 20px;
-}
-
-.logo img {
-    width: 140px;
-    height: auto;
 }
 
 .container {
@@ -51,14 +21,9 @@ header img {
     max-width: 1150px;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     gap: 60px;
     margin-top: 80px;
-}
-
-.logo-area {
-    position: fixed;
-    top: 1px;
-    left: 20px;
 }
 
 .apresentacao {
@@ -71,64 +36,42 @@ header img {
     font-size: 3.4rem;
     font-weight: 800;
     line-height: 1.1;
-    margin-bottom: 10px;
 }
 
 .apresentacao p {
-    font-size: 1.1rem;
-    margin-bottom: 8px;
+    font-size: 1.15rem;
     opacity: 0.9;
-}
-
-.link-entrar {
-    color: var(--cor-texto);
-    font-weight: 600;
-    cursor: pointer;
-    text-decoration: underline;
+    margin-top: 10px;
 }
 
 .pets-img {
     width: 100%;
-    margin-top: 20px;
+    margin-top: 25px;
 }
 
 .form-card {
     width: 430px;
     padding: 45px 35px;
     border-radius: 26px;
+
     background: rgba(255, 255, 255, 0.22);
     backdrop-filter: blur(18px);
     -webkit-backdrop-filter: blur(18px);
+
     border: 1.8px solid rgba(255, 255, 255, 0.45);
+
     box-shadow:
         0 20px 40px rgba(0, 0, 0, 0.18),
         inset 6px 6px 14px rgba(255, 255, 255, 0.35),
         inset -6px -6px 14px rgba(0, 0, 0, 0.08);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    transition: 0.25s ease;
+
+    transition: .25s ease;
 }
 
 .form-card:hover {
-    background: rgba(255, 255, 255, 0.29);
-    border-color: rgba(255, 255, 255, 0.65);
-    box-shadow:
-        0 24px 48px rgba(0, 0, 0, 0.22),
-        inset 4px 4px 10px rgba(255, 255, 255, 0.45),
-        inset -5px -5px 12px rgba(0, 0, 0, 0.06);
+    background: rgba(255, 255, 255, 0.30);
+    border-color: rgba(255, 255, 255, 0.60);
     transform: scale(1.015);
-}
-
-.avatar {
-    width: 110px;
-    height: 110px;
-    background: rgba(255,255,255,0.8);
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 25px;
 }
 
 .login-form {
@@ -142,17 +85,22 @@ header img {
     width: 100%;
     padding: 16px 20px;
     border-radius: 26px;
+
     font-size: 1rem;
     outline: none;
+
     background: rgba(255, 255, 255, 0.25);
     border: 1.6px solid rgba(255, 255, 255, 0.45);
     color: #0f6c75;
+
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
+
     box-shadow:
         inset 6px 6px 12px rgba(255, 255, 255, 0.55),
         inset -4px -4px 10px rgba(0, 0, 0, 0.10),
         0 8px 20px rgba(0, 0, 0, 0.12);
+
     transition: 0.18s ease;
 }
 
@@ -162,43 +110,21 @@ header img {
 
 .input-group input:focus {
     background: rgba(255, 255, 255, 0.33);
-    border-color: rgba(255, 255, 255, 0.65);
+    border-color: rgba(255, 255, 255, 0.70);
     transform: scale(1.02);
-    box-shadow:
-        inset 4px 4px 10px rgba(255, 255, 255, 0.65),
-        inset -3px -3px 8px rgba(0, 0, 0, 0.08),
-        0 10px 24px rgba(0, 0, 0, 0.15);
-}
-
-.opcoes {
-    display: flex;
-    justify-content: space-between;
-    font-size: 0.85rem;
-    margin-top: -8px;
-    margin-bottom: 25px;
-    color: rgba(0,0,0,0.55);
-}
-
-.lembrar {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-}
-
-.remember-me input {
-    width: 15px;
-    height: 15px;
 }
 
 .btn-login {
     width: 100%;
     padding: 15px 20px;
     border-radius: 28px;
+
     font-size: 1.05rem;
     font-weight: 700;
     cursor: pointer;
 
     color: #138a93;
+
     background: rgba(255, 255, 255, 0.25);
     border: 1.8px solid rgba(255, 255, 255, 0.45);
 
@@ -210,7 +136,7 @@ header img {
         inset -4px -4px 10px rgba(0, 0, 0, 0.10),
         0 8px 20px rgba(0, 0, 0, 0.12);
 
-    transition: 0.18s ease;
+    transition: .18s ease;
 }
 
 .btn-login:hover {
@@ -218,18 +144,11 @@ header img {
     transform: scale(1.03);
 }
 
-.btn-login:active {
-    transform: scale(0.97);
-    box-shadow:
-        inset 3px 3px 7px rgba(0, 0, 0, 0.23),
-        inset -3px -3px 7px rgba(255, 255, 255, 0.40);
-}
-
 @media (max-width: 950px) {
     .container {
         flex-direction: column;
         text-align: center;
-        margin-top: 120px;
+        margin-top: 140px;
     }
 
     .apresentacao {
@@ -240,133 +159,4 @@ header img {
         width: 90%;
         max-width: 430px;
     }
-<<<<<<<< HEAD:assets/css/cadastros.css
-
-    .logo img {
-        opacity: 0;
-    }
-
 }
-
-.fade-out {
-    opacity: 0;
-    transform: translateY(10px);
-    transition: .45s ease;
-}
-
-.fade-in {
-    opacity: 1;
-    transform: translateY(0px);
-    transition: .45s ease;
-}
-
-.spin-glass {
-    animation: girar .6s ease forwards;
-}
-
-@keyframes girar {
-    from { transform: rotateY(0deg); }
-    to { transform: rotateY(360deg); }
-}
-
-.tela-oculta {
-    opacity: 0;
-    pointer-events: none;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(.95);
-    text-align: center;
-    transition: .45s ease;
-}
-
-.tela-visivel {
-    opacity: 1;
-    pointer-events: all;
-    transform: translate(-50%, -50%) scale(1);
-}
-
-#tela-boas-vindas h1 {
-    color: white;
-    font-size: 3rem;
-    font-weight: 800;
-}
-
-#texto-ola {
-    color: #ffffffcc;
-    font-size: 1.3rem;
-    margin-top: 10px;
-}
-
-.fade-out {
-    opacity: 0;
-    transform: translateY(10px);
-    transition: .45s ease;
-}
-
-.fade-in {
-    opacity: 1;
-    transform: translateY(0px);
-    transition: .45s ease;
-}
-
-.spin-glass {
-    animation: vidroSpin .6s ease forwards;
-}
-
-@keyframes vidroSpin {
-    from { transform: rotateY(0deg); }
-    to { transform: rotateY(360deg); }
-}
-
-.tela-oculta {
-    opacity: 0;
-    pointer-events: none;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(.95);
-    text-align: center;
-}
-
-.tela-visivel {
-    opacity: 1;
-    pointer-events: all;
-    transition: .45s ease;
-    transform: translate(-50%, -50%) scale(1);
-}
-
-.pulse {
-    animation: pulso .55s ease;
-}
-
-@keyframes pulso {
-    0% { transform: translate(-50%, -50%) scale(.9); opacity: 0; }
-    100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
-}
-
-.tela-oculta {
-    display: none;
-    opacity: 0;
-}
-
-@keyframes fadeOut {
-    to {
-        opacity: 0;
-        transform: translateY(10px);
-    }
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: scale(0.95);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
-========
-}
->>>>>>>> 61cf3b26afdec33dfc9b09d886db011b8abab217:assets/css/contato.css
