@@ -1,4 +1,4 @@
-const API_URL = "https://backend-adoteaqui-06i1.onrender.com";
+const API_URL = "https://backend-adote-aqui.vercel.app/";
 
 // Variáveis globais
 let tipos = [];
